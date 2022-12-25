@@ -1,0 +1,11 @@
+name: UniVault
+version: '${project.version}'
+main: me.improperissues.univault.UniVault
+api-version: 1.17
+authors: [ ImproperIssues ]
+description: A universal vault that can be accessed from anywhere in the server.
+website: github.com/ItziSpyder
+commands:
+  vault:
+    description: Opens a vault!
+    usage: §4Correct Usage >> §7/vault <page number>
