@@ -4,6 +4,7 @@ import me.improperissues.univault.commands.Commands;
 import me.improperissues.univault.commands.Tabs;
 import me.improperissues.univault.data.Items;
 import me.improperissues.univault.data.Shelf;
+import me.improperissues.univault.events.HandPickedEvent;
 import me.improperissues.univault.events.PageClickEvent;
 import me.improperissues.univault.events.ShelfClickEvent;
 import org.bukkit.Bukkit;
@@ -30,6 +31,7 @@ public final class UniVault extends JavaPlugin {
         // Register events
         getServer().getPluginManager().registerEvents(new PageClickEvent(),this);
         getServer().getPluginManager().registerEvents(new ShelfClickEvent(),this);
+        getServer().getPluginManager().registerEvents(new HandPickedEvent(),this);
 
         // Files
         getConfig().options().copyDefaults(true);
@@ -42,6 +44,8 @@ public final class UniVault extends JavaPlugin {
         getCommand("review").setTabCompleter(new Tabs());
         getCommand("submit").setExecutor(new Commands());
         getCommand("submit").setTabCompleter(new Tabs());
+        getCommand("handpicked").setExecutor(new Commands());
+        getCommand("handpicked").setTabCompleter(new Tabs());
 
         // Register items
         Items.registerItems();

@@ -21,3 +21,8 @@ commands:
     usage: §4Correct Usage >> §7/submit §cor §7/submit <delete> <item index>
     aliases:
       - submissions
+  handpicked:
+    description: Creates a hand-picked kit!
+    usage: §4Correct Usage >> §7/handpicked <action> <saved kit>
+    permission: univault.handpicked
+    permission-message: §4You do not have access to this!

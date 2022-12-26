@@ -1,5 +1,6 @@
 package me.improperissues.univault.commands;
 
+import me.improperissues.univault.data.HandPicked;
 import me.improperissues.univault.data.Page;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -48,6 +49,19 @@ public class Tabs implements TabCompleter {
                     case 1:
                         list.add("delete");
                         break;
+                }
+                break;
+            case "handpicked":
+                switch (args.length) {
+                    case 1:
+                        list.add("teleport");
+                        list.add("delete");
+                        list.add("create");
+                        list.add("open");
+                        list.add("edit");
+                        break;
+                    case 2:
+                        return HandPicked.getAllChests();
                 }
                 break;
         }

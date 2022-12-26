@@ -1,6 +1,7 @@
 package me.improperissues.univault.commands;
 
 import me.improperissues.univault.data.Config;
+import me.improperissues.univault.data.HandPicked;
 import me.improperissues.univault.data.Page;
 import me.improperissues.univault.data.Shelf;
 import me.improperissues.univault.other.Sounds;
@@ -89,6 +90,30 @@ public class Commands implements CommandExecutor {
                             Shelf.delete((Player) sender,deleteIndex);
                             return true;
                         }
+                    }
+                    return false;
+                case "handpicked":
+                    HandPicked hp = HandPicked.load(HandPicked.getFile(args[1]));
+                    switch (args[0]) {
+                        case "create":
+                            HandPicked.createItem((Player) sender,args[1]);
+                            return true;
+                        case "delete":
+                            hp.delete();
+                            sender.sendMessage("§dDeleted " + hp.getName());
+                            return true;
+                        case "teleport":
+                            ((Player) sender).teleport(hp.getLocation());
+                            sender.sendMessage("§dTeleported to " + hp.getName());
+                            return true;
+                        case "open":
+                            hp.createInventory((Player) sender);
+                            sender.sendMessage("§dOpening " + hp.getName());
+                            return true;
+                        case "edit":
+                            hp.editInventory((Player) sender);
+                            sender.sendMessage("§dOpening edit menu of " + hp.getName());
+                            return true;
                     }
                     return false;
             }
