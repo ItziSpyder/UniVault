@@ -1,5 +1,6 @@
 # UniVault
 A universal vault that can be accessed from anywhere in the server.
+https://www.spigotmc.org/resources/universalvaults.106973/
 
 - /vault <page number>
 - /view [all|shulker|random] <page number>
