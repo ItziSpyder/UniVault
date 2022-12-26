@@ -9,9 +9,15 @@ commands:
   vault:
     description: Opens a vault
     usage: §4Correct Usage >> §7/vault <page number>
+    aliases:
+      - page
   view:
     description: Opens a public shelf
     usage: §4Correct Usage >> §7/view <type> <page number>
+    aliases:
+      - review
   submit:
     description: Opens the public submission menu
     usage: §4Correct Usage >> §7/submit §cor §7/submit <delete> <item index>
+    aliases:
+      - submissions
