@@ -236,7 +236,8 @@ public class Shelf {
 
     public static void openSubmit(Player player) {
         Inventory menu = Bukkit.createInventory(player,54,"§7>> §a§oSubmission");
-        ItemStack x = Items.setBlank(new ItemStack(Material.LIME_STAINED_GLASS_PANE));
+        ItemStack g = Items.setBlank(new ItemStack(Material.LIME_STAINED_GLASS_PANE));
+        ItemStack x = Items.setBlank(new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
         ItemStack a = Items.AIR;
         ItemStack r = new ItemStack(getRanItem().getType());
         ItemMeta rMeta = r.getItemMeta();
@@ -244,9 +245,9 @@ public class Shelf {
         r.setItemMeta(rMeta);
         ItemStack[] contents = {
                 x,x,x,x,x,x,x,x,x,
-                x,a,a,a,a,a,a,a,x,
-                x,a,a,a,a,a,a,a,x,
-                x,a,a,a,a,a,a,a,x,
+                x,g,g,g,g,g,g,g,x,
+                x,g,a,a,a,a,a,g,x,
+                x,g,g,g,g,g,g,g,x,
                 x,x,x,x,x,x,x,x,x,
                 x,x,x,x,r,x,x,x,Items.SUBMIT,
         };
