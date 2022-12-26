@@ -31,7 +31,7 @@ public class Tabs implements TabCompleter {
                         break;
                 }
                 break;
-            case "view":
+            case "review":
                 switch (args.length) {
                     case 1:
                         list.add("shulker");

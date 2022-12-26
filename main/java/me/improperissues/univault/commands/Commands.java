@@ -39,7 +39,7 @@ public class Commands implements CommandExecutor {
                     sender.sendMessage("§dOpening vault " + index + "...");
                     Sounds.openVault((Player) sender);
                     return true;
-                case "view":
+                case "review":
                     // permission check
                     if (!sender.isOp() && Config.getRequiresOp()) {
                         sender.sendMessage("§4You cannot use this command!");

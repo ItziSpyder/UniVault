@@ -38,8 +38,8 @@ public final class UniVault extends JavaPlugin {
         // Commands
         getCommand("vault").setExecutor(new Commands());
         getCommand("vault").setTabCompleter(new Tabs());
-        getCommand("view").setExecutor(new Commands());
-        getCommand("view").setTabCompleter(new Tabs());
+        getCommand("review").setExecutor(new Commands());
+        getCommand("review").setTabCompleter(new Tabs());
         getCommand("submit").setExecutor(new Commands());
         getCommand("submit").setTabCompleter(new Tabs());
 

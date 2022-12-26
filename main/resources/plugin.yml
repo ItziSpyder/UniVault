@@ -11,11 +11,11 @@ commands:
     usage: §4Correct Usage >> §7/vault <page number>
     aliases:
       - page
-  view:
+  review:
     description: Opens a public shelf
     usage: §4Correct Usage >> §7/view <type> <page number>
     aliases:
-      - review
+      - view
   submit:
     description: Opens the public submission menu
     usage: §4Correct Usage >> §7/submit §cor §7/submit <delete> <item index>
