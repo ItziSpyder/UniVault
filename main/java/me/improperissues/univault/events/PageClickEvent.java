@@ -3,6 +3,7 @@ package me.improperissues.univault.events;
 import me.improperissues.univault.data.Config;
 import me.improperissues.univault.data.Items;
 import me.improperissues.univault.data.Page;
+import me.improperissues.univault.other.Sounds;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -26,28 +27,33 @@ public class PageClickEvent implements Listener {
             ItemMeta meta = item.getItemMeta();
             String display = meta.getDisplayName();
 
-            if (inv.getType().equals(InventoryType.PLAYER)) {
-                if (!p.isOp() && !Config.getNonopEdit()) {
+            if (title.contains("§7>> §aPage §e")) {
+                // cancel the event if conditions aren't met
+                if (inv.getType().equals(InventoryType.PLAYER)) {
+                    if (!p.isOp() && !Config.getNonopEdit()) {
+                        e.setCancelled(true);
+                        return;
+                    }
+                    return;
+                }
+                if (display.equals(" ")) {
                     e.setCancelled(true);
                     return;
                 }
-                return;
-            }
-            if (display.equals(" ")) {
-                e.setCancelled(true);
-                return;
-            }
-            if (title.contains("§7>> §aPage §e")) {
+
+                // register the event if the conditions are met
                 int currentPage = getCurrentPage(title);
                 Page page = Page.load(currentPage);
                 if (display.contains("§fNext")) {
                     currentPage ++;
                     Page next = Page.load(currentPage);
                     next.createInventory(p);
+                    Sounds.turnPage(p);
                 } else if (display.contains("§fBack")) {
                     currentPage --;
                     Page back = Page.load(currentPage);
                     back.createInventory(p);
+                    Sounds.turnPage(p);
                 }  else if (display.contains("§cNULL")) {
                     e.setCurrentItem(Items.AIR);
                 } else {

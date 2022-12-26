@@ -30,6 +30,18 @@ public class Config {
         return config.getBoolean("config.permissions.nonop_edit");
     }
 
+    public static boolean getEnableSubmissions() {
+        return config.getBoolean("config.submissions.enabled");
+    }
+
+    public static boolean getDuplicates() {
+        return config.getBoolean("config.submissions.duplicates");
+    }
+
+    public static int getCooldown() {
+        return config.getInt("config.submissions.cooldown");
+    }
+
     public static void setMaxPages(int maxPages) {
         config.set("config.general.max_pages",maxPages);
     }
@@ -48,5 +60,17 @@ public class Config {
 
     public static void setNonopEdit(boolean nonopEdit) {
         config.set("config.permissions.nonop_edit",nonopEdit);
+    }
+
+    public static void setEnableSubmissions(boolean enableSubmissions) {
+        config.set("config.submissions.enabled",enableSubmissions);
+    }
+
+    public static void setDuplicates(boolean duplicates) {
+        config.set("config.submissions.duplicates",duplicates);
+    }
+
+    public static void setCooldown(int cooldown) {
+        config.set("config.submissions.cooldown",cooldown);
     }
 }

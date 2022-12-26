@@ -8,8 +8,6 @@ import org.bukkit.command.TabCompleter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.bukkit.Bukkit.getServer;
-
 public class Tabs implements TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
@@ -32,6 +30,26 @@ public class Tabs implements TabCompleter {
                         }
                         break;
                 }
+                break;
+            case "view":
+                switch (args.length) {
+                    case 1:
+                        list.add("shulker");
+                        list.add("random");
+                        list.add("all");
+                        break;
+                    case 2:
+                        list.add("1");
+                        break;
+                }
+                break;
+            case "submit":
+                switch (args.length) {
+                    case 1:
+                        list.add("delete");
+                        break;
+                }
+                break;
         }
 
         return list;

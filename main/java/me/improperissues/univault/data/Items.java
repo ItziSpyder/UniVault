@@ -16,7 +16,8 @@ public class Items {
                 BACK,
                 NEXT,
                 NULL,
-                AIR
+                AIR,
+                SUBMIT
         };
     }
 
@@ -25,6 +26,7 @@ public class Items {
         setNEXT();
         setNULL();
         setAIR();
+        setSUBMIT();
     }
 
     public static ItemStack addItemFlags(ItemStack item) {
@@ -55,6 +57,7 @@ public class Items {
     public static ItemStack NEXT;
     public static ItemStack NULL;
     public static ItemStack AIR;
+    public static ItemStack SUBMIT;
 
     static void setBACK() {
         ItemStack item = new ItemStack(Material.ARROW);
@@ -92,5 +95,22 @@ public class Items {
 
     static void setAIR() {
         AIR = new ItemStack(Material.AIR);
+    }
+
+    static void setSUBMIT() {
+        ItemStack item = new ItemStack(Material.EMERALD);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName("§aSUBMIT");
+        meta.setLore(new ArrayList<>(Arrays.asList(
+                "§7By submitting an item, you",
+                "§7are storing a new item into",
+                "§7the server, and everyone will",
+                "§7have access to it. Make sure",
+                "§7the submitted items don't go",
+                "§7pass the nbt limit, or it will",
+                "§7be removed!"
+        )));
+        item.setItemMeta(meta);
+        SUBMIT = addItemFlags(item);
     }
 }

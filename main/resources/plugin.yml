@@ -7,5 +7,11 @@ description: A universal vault that can be accessed from anywhere in the server.
 website: github.com/ItziSpyder
 commands:
   vault:
-    description: Opens a vault!
+    description: Opens a vault
     usage: §4Correct Usage >> §7/vault <page number>
+  view:
+    description: Opens a public shelf
+    usage: §4Correct Usage >> §7/view <type> <page number>
+  submit:
+    description: Opens the public submission menu
+    usage: §4Correct Usage >> §7/submit §cor §7/submit <delete> <item index>

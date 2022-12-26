@@ -6,4 +6,7 @@ config:
   permissions:
     requires_op: false
     nonop_edit: true
-
+  submissions:
+    enabled: true
+    duplicates: false
+    cooldown: 10
