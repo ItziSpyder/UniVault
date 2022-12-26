@@ -8,7 +8,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -41,6 +40,10 @@ public class HandPickedEvent implements Listener {
                     }
                     hp.createInventory(p);
                     p.sendMessage("§dViewing contents...");
+                    return;
+                } else if (title.contains("§c#SUBMISSION") && e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+                    e.setCancelled(true);
+                    p.chat("/submit");
                     return;
                 }
             }

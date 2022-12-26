@@ -1,9 +1,7 @@
 package me.improperissues.univault.commands;
 
-import me.improperissues.univault.data.Config;
-import me.improperissues.univault.data.HandPicked;
-import me.improperissues.univault.data.Page;
-import me.improperissues.univault.data.Shelf;
+import me.improperissues.univault.data.*;
+import me.improperissues.univault.events.ShelfClickEvent;
 import me.improperissues.univault.other.Sounds;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -47,23 +45,32 @@ public class Commands implements CommandExecutor {
                         return true;
                     }
                     // open inventory
-                    int viewIndex = Integer.parseInt(args[1]);
-                    sender.sendMessage("§dCurrent total items: " + Shelf.getItemList().size());
+                    int viewIndex = 0;
+                    if (args.length == 2 && !args[0].equals("search")) viewIndex = Integer.parseInt(args[1]);
                     switch (args[0]) {
                         case "all":
+                            if (args.length == 1) viewIndex = (int) Math.ceil(Shelf.STOREDITEMS.size() / 54.0);
                             Shelf.openItems((Player) sender,viewIndex - 1);
                             Sounds.openVault((Player) sender);
                             sender.sendMessage("§dOpening shelf:all " + viewIndex + "...");
                             return true;
                         case "shulker":
+                            if (args.length == 1) viewIndex = (int) Math.ceil(Shelf.STOREDSHULKERS.size() / 54.0);
                             Shelf.openShulker((Player) sender,viewIndex - 1);
                             Sounds.openVault((Player) sender);
                             sender.sendMessage("§dOpening shelf:shulker " + viewIndex + "...");
                             return true;
                         case "random":
+                            if (args.length == 1) viewIndex = (int) Math.ceil(Shelf.STOREDRANDOM.size() / 54.0);
                             Shelf.openRandom((Player) sender,viewIndex - 1);
                             Sounds.openVault((Player) sender);
                             sender.sendMessage("§dOpening shelf:random " + viewIndex + "...");
+                            return true;
+                        case "search":
+                            if (args.length == 1) ShelfClickEvent.sendSearchMessage((Player) sender);
+                            else if (args.length == 2) {
+                                ShelfClickEvent.openQueriedItems((Player) sender,args[1].replaceAll("#:",""));
+                            }
                             return true;
                     }
                     return false;
@@ -116,6 +123,16 @@ public class Commands implements CommandExecutor {
                             return true;
                     }
                     return false;
+                case "readitem":
+                    NBT.readItem(((Player) sender));
+                    return true;
+                case "testitem":
+                    NBT.testItem((Player) sender);
+                    return true;
+                case "givesubmissionchest":
+                    ((Player) sender).getInventory().setItemInMainHand(Items.SUBMITCHEST);
+                    sender.sendMessage("§dGave a submission chest!");
+                    return true;
             }
         } catch (Exception exception) {
             // if the command generates or throws and exception, state the cause and print the exception to the command sender

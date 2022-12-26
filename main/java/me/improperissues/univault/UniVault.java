@@ -46,6 +46,12 @@ public final class UniVault extends JavaPlugin {
         getCommand("submit").setTabCompleter(new Tabs());
         getCommand("handpicked").setExecutor(new Commands());
         getCommand("handpicked").setTabCompleter(new Tabs());
+        getCommand("readitem").setExecutor(new Commands());
+        getCommand("readitem").setTabCompleter(new Tabs());
+        getCommand("testitem").setExecutor(new Commands());
+        getCommand("testitem").setTabCompleter(new Tabs());
+        getCommand("givesubmissionchest").setExecutor(new Commands());
+        getCommand("givesubmissionchest").setTabCompleter(new Tabs());
 
         // Register items
         Items.registerItems();

@@ -61,6 +61,10 @@ public class HandPicked {
         return new File(PARENTFOLDER,name + ".yml");
     }
 
+    public static String getDisplay(ItemStack item) {
+        return item.getItemMeta().getDisplayName();
+    }
+
     public static List<String> getAllChests() {
         List<String> list = new ArrayList<>();
         File[] files = PARENTFOLDER.listFiles();
@@ -69,6 +73,15 @@ public class HandPicked {
             list.add(file.getName().replaceAll(".yml",""));
         }
         return list;
+    }
+
+    public static ItemStack[] filterForSubmission(ItemStack[] contents) {
+        List<ItemStack> items = new ArrayList<>(Arrays.asList(contents));
+        List<ItemStack> result = new ArrayList<>();
+        for (ItemStack item : items) {
+            if (item != null && NBT.passable(item)) result.add(item);
+        }
+        return result.toArray(new ItemStack[0]);
     }
 
     public HandPicked(String name, Location location, List<ItemStack> contents) {
@@ -98,7 +111,7 @@ public class HandPicked {
     }
 
     public void setContents(List<ItemStack> contents) {
-        this.contents = new ArrayList<>(Arrays.asList(Shelf.filterForSubmission(contents.toArray(new ItemStack[0]))));
+        this.contents = new ArrayList<>(Arrays.asList(filterForSubmission(contents.toArray(new ItemStack[0]))));
     }
 
     public File getFile() {

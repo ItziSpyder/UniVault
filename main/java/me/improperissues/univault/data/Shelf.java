@@ -53,7 +53,7 @@ public class Shelf {
 
     public static void deleteUnusedFiles() {
         // gets the total pages, or the number of used files
-        final int totalPages = (int) Math.ceil(STOREDITEMS.size() / 200.0);
+        final int totalPages = (int) Math.ceil(STOREDITEMS.size() / 100.0);
         // list of the saved files
         File[] files = PARENTFOLDER.listFiles();
         // file list cannot be null
@@ -166,13 +166,8 @@ public class Shelf {
             try {
                 // submission items cannot have the same display names as the menu sprites
                 // submission items cannot duplicate with the items in the big list
-                if (!getDisplay(item).equals(" ") && !getDisplay(item).contains(getDisplay(Items.SUBMIT))
-                        && !(!Config.getDuplicates() && STOREDITEMS.contains(item)) && !getDisplay(item).contains("§eRANDOM ITEM") && !item.getType().isAir()) {
-                    // submission items cannot have too much or too less nbt data
-                    if (NBT.passable(item)) result.add(item);
-                    else result.add(Items.NULL);
-                }
-
+                item.setAmount(1);
+                if (NBT.submittable(item) && !result.contains(item)) result.add(item);
             } catch (NullPointerException exception) {
                 // empty
             }
@@ -249,7 +244,7 @@ public class Shelf {
                 x,g,a,a,a,a,a,g,x,
                 x,g,g,g,g,g,g,g,x,
                 x,x,x,x,x,x,x,x,x,
-                x,x,x,x,r,x,x,x,Items.SUBMIT,
+                Items.SHULKERITEMS,Items.RANDOMITEMS,Items.ALLITEMS,x,r,x,x,Items.SEARCH,Items.SUBMIT,
         };
         menu.setContents(contents);
         player.openInventory(menu);

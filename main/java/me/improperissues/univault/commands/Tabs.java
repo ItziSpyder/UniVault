@@ -38,9 +38,10 @@ public class Tabs implements TabCompleter {
                         list.add("shulker");
                         list.add("random");
                         list.add("all");
+                        list.add("search");
                         break;
                     case 2:
-                        list.add("1");
+                        if (!args[0].equals("search")) list.add("1"); else list.add("#:");
                         break;
                 }
                 break;
@@ -63,6 +64,10 @@ public class Tabs implements TabCompleter {
                     case 2:
                         return HandPicked.getAllChests();
                 }
+                break;
+            case "readitem":
+            case "testitem":
+            case "givesubmissionchest":
                 break;
         }
 
