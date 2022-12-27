@@ -7,6 +7,10 @@ https://www.spigotmc.org/resources/universalvaults.106973/
 - /submit
 - /submit delete <index>
 - /handpicked [create|delete|open|edit|teleport] <handpicked kit>
+- /archive [generate|delete|teleport|setair|setorigin]
+- /givesubmissionchest
+- /readitem
+- /testitem
 
 -----------------------------------------------------------
 For: @1sKq, NBTArchives.minehut.gg
