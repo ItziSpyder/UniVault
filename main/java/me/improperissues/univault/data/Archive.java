@@ -91,10 +91,10 @@ public class Archive {
 
 
 
-    private static void addData(Block block, int index, BlockFace face) {
+    private static void addData(Block block, int index, BlockFace face, String type) {
         block.setType(Material.BARREL);
         Container chest = (Container) block.getState();
-        chest.setCustomName("§c#RANDOM:" + index);
+        chest.setCustomName("§c#" + type.toUpperCase() + ":" + index);
         chest.update();
         Directional facing = (Directional) block.getBlockData();
         facing.setFacing(face);
@@ -112,11 +112,11 @@ public class Archive {
         for (int l = 0; l < 300; l ++) {
             for (int h = 0; h < 8; h ++) {
                 Block block = RANDOM_TOP_LEFT.clone().add(0,h,l).getBlock();
-                addData(block,RANDOM_INDEX,BlockFace.WEST);
+                addData(block,RANDOM_INDEX,BlockFace.WEST,"RANDOM");
                 RANDOM_INDEX ++;
 
                 block = RANDOM_TOP_RIGHT.clone().add(0,h,l).getBlock();
-                addData(block,RANDOM_INDEX,BlockFace.EAST);
+                addData(block,RANDOM_INDEX,BlockFace.EAST,"RANDOM");
                 RANDOM_INDEX ++;
             }
         }
@@ -126,11 +126,11 @@ public class Archive {
         for (int l = 0; l < 300; l ++) {
             for (int h = 0; h < 8; h ++) {
                 Block block = RANDOM_BOTTOM_LEFT.clone().add(0,h,-l).getBlock();
-                addData(block,RANDOM_INDEX,BlockFace.WEST);
+                addData(block,RANDOM_INDEX,BlockFace.WEST,"RANDOM");
                 RANDOM_INDEX ++;
 
                 block = RANDOM_BOTTOM_RIGHT.clone().add(0,h,-l).getBlock();
-                addData(block,RANDOM_INDEX,BlockFace.EAST);
+                addData(block,RANDOM_INDEX,BlockFace.EAST,"RANDOM");
                 RANDOM_INDEX ++;
             }
         }
@@ -140,11 +140,11 @@ public class Archive {
         for (int l = 0; l < 300; l ++) {
             for (int h = 0; h < 8; h ++) {
                 Block block = SHULKER_TOP_LEFT.clone().add(l,h,0).getBlock();
-                addData(block,SHULKER_INDEX,BlockFace.NORTH);
+                addData(block,SHULKER_INDEX,BlockFace.NORTH,"SHULKER");
                 SHULKER_INDEX ++;
 
                 block = SHULKER_BOTTOM_LEFT.clone().add(l,h,0).getBlock();
-                addData(block,SHULKER_INDEX,BlockFace.SOUTH);
+                addData(block,SHULKER_INDEX,BlockFace.SOUTH,"SHULKER");
                 SHULKER_INDEX ++;
             }
         }
@@ -154,11 +154,11 @@ public class Archive {
         for (int l = 0; l < 300; l ++) {
             for (int h = 0; h < 8; h ++) {
                 Block block = SHULKER_TOP_RIGHT.clone().add(-l,h,0).getBlock();
-                addData(block,SHULKER_INDEX,BlockFace.NORTH);
+                addData(block,SHULKER_INDEX,BlockFace.NORTH,"SHULKER");
                 SHULKER_INDEX ++;
 
                 block = SHULKER_BOTTOM_RIGHT.clone().add(-l,h,0).getBlock();
-                addData(block,SHULKER_INDEX,BlockFace.SOUTH);
+                addData(block,SHULKER_INDEX,BlockFace.SOUTH,"SHULKER");
                 SHULKER_INDEX ++;
             }
         }
