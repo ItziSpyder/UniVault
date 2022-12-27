@@ -123,6 +123,42 @@ public class ShelfClickEvent implements Listener {
                     e.setCancelled(true);
                     p.chat("/review search #:" + getDisplay(inv.getItem(e.getSlot())));
                 }
+            } else if (title.contains("§7>> §aShelf:")) {
+                if (inv.getType().equals(InventoryType.PLAYER)) {
+                    return;
+                }
+                if (display.equals(" ")) {
+                    e.setCancelled(true);
+                    return;
+                }
+                int currentPage = getCurrentPage(title);
+                if (display.equals(getDisplay(Items.BACK))) {
+                    e.setCancelled(true);
+                    currentPage -= 1;
+                    currentPage = (currentPage > 0 ? currentPage : 1);
+                    if (title.contains("SHULKER")) {
+                        p.chat("/review shulker " + currentPage);
+                    }
+                    if (title.contains("RANDOM")) {
+                        p.chat("/review random " + currentPage);
+                    }
+                    if (title.contains("ALL")) {
+                        p.chat("/review all " + currentPage);
+                    }
+                }
+                if (display.equals(getDisplay(Items.NEXT))) {
+                    e.setCancelled(true);
+                    currentPage += 1;
+                    if (title.contains("SHULKER")) {
+                        p.chat("/review shulker " + currentPage);
+                    }
+                    if (title.contains("RANDOM")) {
+                        p.chat("/review random " + currentPage);
+                    }
+                    if (title.contains("ALL")) {
+                        p.chat("/review all " + currentPage);
+                    }
+                }
             }
         } catch (NullPointerException exception) {
             // empty
@@ -165,5 +201,9 @@ public class ShelfClickEvent implements Listener {
 
     public static String getDisplay(ItemStack item) {
         return item.getItemMeta().getDisplayName();
+    }
+
+    private static int getCurrentPage(String title) {
+        return Integer.parseInt(title.split("§e")[1]);
     }
 }

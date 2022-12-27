@@ -50,19 +50,19 @@ public class Commands implements CommandExecutor {
                     if (args.length == 2 && !args[0].equals("search")) viewIndex = Integer.parseInt(args[1]);
                     switch (args[0]) {
                         case "all":
-                            if (args.length == 1) viewIndex = (int) Math.ceil(Shelf.STOREDITEMS.size() / 54.0);
+                            if (args.length == 1) viewIndex = (int) Math.ceil(Shelf.STOREDITEMS.size() / 45.0);
                             Shelf.openItems((Player) sender,viewIndex - 1);
-                            Sounds.openVault((Player) sender);
+                            Sounds.turnPage((Player) sender);
                             return true;
                         case "shulker":
-                            if (args.length == 1) viewIndex = (int) Math.ceil(Shelf.STOREDSHULKERS.size() / 54.0);
+                            if (args.length == 1) viewIndex = (int) Math.ceil(Shelf.STOREDSHULKERS.size() / 45.0);
                             Shelf.openShulker((Player) sender,viewIndex - 1);
-                            Sounds.openVault((Player) sender);
+                            Sounds.turnPage((Player) sender);
                             return true;
                         case "random":
-                            if (args.length == 1) viewIndex = (int) Math.ceil(Shelf.STOREDRANDOM.size() / 54.0);
+                            if (args.length == 1) viewIndex = (int) Math.ceil(Shelf.STOREDRANDOM.size() / 45.0);
                             Shelf.openRandom((Player) sender,viewIndex - 1);
-                            Sounds.openVault((Player) sender);
+                            Sounds.turnPage((Player) sender);
                             return true;
                         case "search":
                             if (args.length == 1) ShelfClickEvent.sendSearchMessage((Player) sender);

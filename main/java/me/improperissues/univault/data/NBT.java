@@ -1,6 +1,7 @@
 package me.improperissues.univault.data;
 
 import me.improperissues.univault.UniVault;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -21,7 +22,7 @@ public class NBT {
 
     public static boolean submittable(ItemStack item) {
         String display = getDisplay(item);
-        return passable(item) && !willDuplicate(item) && !item.getType().isAir() && !(display.equals(" ") || display.contains(getDisplay(Items.SUBMIT))
+        return passable(item) && !willDuplicate(item) && !item.getType().equals(Material.AIR) && !(display.equals(" ") || display.contains(getDisplay(Items.SUBMIT))
                 || display.contains(getDisplay(Items.SEARCH)) || display.contains(getDisplay(Items.NULL))
                 || display.contains(getDisplay(Items.RANDOMITEMS)) || display.contains(getDisplay(Items.ALLITEMS))
                 || display.contains(getDisplay(Items.SHULKERITEMS)) || display.contains("§eRANDOM ITEM"));
@@ -30,7 +31,7 @@ public class NBT {
     public static boolean willDuplicate(ItemStack item) {
         ItemStack clone = item.clone();
         clone.setAmount(1);
-        return Shelf.STOREDITEMS.contains(clone);
+        return Shelf.STOREDITEMS.contains(clone) && !Config.getDuplicates();
     }
 
     public static void testItem(Player player) {

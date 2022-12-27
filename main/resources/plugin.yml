@@ -1,5 +1,5 @@
 name: UniVault
-version: '${project.version}'
+version: v1.2.1
 main: me.improperissues.univault.UniVault
 api-version: 1.17
 authors: [ ImproperIssues ]

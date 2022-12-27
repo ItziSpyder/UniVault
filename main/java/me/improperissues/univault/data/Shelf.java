@@ -29,9 +29,9 @@ public class Shelf {
     public static void reloadItemList() {
         STOREDITEMS = getItemList();
         STOREDRANDOM = new ArrayList<>(STOREDITEMS);
-        STOREDRANDOM.removeIf(item -> isStorage(item));
+        STOREDRANDOM.removeIf(item -> isStorage(item) || item.getType().isAir());
         STOREDSHULKERS = new ArrayList<>(STOREDITEMS);
-        STOREDSHULKERS.removeIf(item -> !isStorage(item));
+        STOREDSHULKERS.removeIf(item -> !isStorage(item) || item.getType().isAir());
     }
 
     public static int getFileIndex(File file) {
@@ -95,7 +95,10 @@ public class Shelf {
                     List<ItemStack> newItemArray = new ArrayList<>();
                     for (int j = (i * 100); j < (i * 100) + 100; j ++) {
                         try {
-                            newItemArray.add(STOREDITEMS.get(j));
+                            ItemStack item = STOREDITEMS.get(j);
+                            if (item.getType().equals(Material.AIR)){
+                                getServer().getLogger().warning("Empty item detected in archive! Deleting...");
+                            } else newItemArray.add(item);
                         } catch (IndexOutOfBoundsException | NullPointerException exception) {
                             // empty
                         }
@@ -187,8 +190,18 @@ public class Shelf {
     public static void openItems(Player player, int index) {
         // creates an inventory for the page
         Inventory menu = Bukkit.createInventory(player,54,"§7>> §aShelf:ALL §e" + (index + 1));
+        ItemStack a = Items.AIR;
+        ItemStack x = Items.setBlank(new ItemStack(Material.LIME_STAINED_GLASS_PANE));
+        menu.setContents(new ItemStack[] {
+                a,a,a,a,a,a,a,a,a,
+                a,a,a,a,a,a,a,a,a,
+                a,a,a,a,a,a,a,a,a,
+                a,a,a,a,a,a,a,a,a,
+                a,a,a,a,a,a,a,a,a,
+                x,x,x,Items.BACK,x,Items.NEXT,x,x,x
+        });
         // add the contents for all item types
-        for (int i = (index * 54); i < (index * 54) + 54; i ++) {
+        for (int i = (index * 45); i < (index * 45) + 45; i ++) {
             try {
                 menu.setItem(menu.firstEmpty(),STOREDITEMS.get(i));
             } catch (IndexOutOfBoundsException | NullPointerException exception) {
@@ -202,8 +215,18 @@ public class Shelf {
     public static void openShulker(Player player, int index) {
         // creates an inventory for the page
         Inventory menu = Bukkit.createInventory(player,54,"§7>> §aShelf:SHULKER §e" + (index + 1));
+        ItemStack a = Items.AIR;
+        ItemStack x = Items.setBlank(new ItemStack(Material.LIME_STAINED_GLASS_PANE));
+        menu.setContents(new ItemStack[] {
+                a,a,a,a,a,a,a,a,a,
+                a,a,a,a,a,a,a,a,a,
+                a,a,a,a,a,a,a,a,a,
+                a,a,a,a,a,a,a,a,a,
+                a,a,a,a,a,a,a,a,a,
+                x,x,x,Items.BACK,x,Items.NEXT,x,x,x
+        });
         // add the contents for all item types
-        for (int i = (index * 54); i < (index * 54) + 54; i ++) {
+        for (int i = (index * 45); i < (index * 45) + 45; i ++) {
             try {
                 menu.setItem(menu.firstEmpty(),STOREDSHULKERS.get(i));
             } catch (IndexOutOfBoundsException | NullPointerException exception) {
@@ -217,8 +240,18 @@ public class Shelf {
     public static void openRandom(Player player, int index) {
         // creates an inventory for the page
         Inventory menu = Bukkit.createInventory(player,54,"§7>> §aShelf:RANDOM §e" + (index + 1));
+        ItemStack a = Items.AIR;
+        ItemStack x = Items.setBlank(new ItemStack(Material.LIME_STAINED_GLASS_PANE));
+        menu.setContents(new ItemStack[] {
+                a,a,a,a,a,a,a,a,a,
+                a,a,a,a,a,a,a,a,a,
+                a,a,a,a,a,a,a,a,a,
+                a,a,a,a,a,a,a,a,a,
+                a,a,a,a,a,a,a,a,a,
+                x,x,x,Items.BACK,x,Items.NEXT,x,x,x
+        });
         // add the contents for all item types
-        for (int i = (index * 54); i < (index * 54) + 54; i ++) {
+        for (int i = (index * 45); i < (index * 45) + 45; i ++) {
             try {
                 menu.setItem(menu.firstEmpty(),STOREDRANDOM.get(i));
             } catch (IndexOutOfBoundsException | NullPointerException exception) {
