@@ -36,10 +36,6 @@ public class PageClickEvent implements Listener {
                     }
                     return;
                 }
-                if (display.equals(" ")) {
-                    e.setCancelled(true);
-                    return;
-                }
 
                 // register the event if the conditions are met
                 int currentPage = getCurrentPage(title);

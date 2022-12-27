@@ -236,6 +236,7 @@ public class Shelf {
         ItemStack a = Items.AIR;
         ItemStack r = new ItemStack(getRanItem().getType());
         ItemMeta rMeta = r.getItemMeta();
+        if (rMeta == null) rMeta = Items.NULL.getItemMeta();
         rMeta.setDisplayName("§eRANDOM ITEM");
         r.setItemMeta(rMeta);
         ItemStack[] contents = {

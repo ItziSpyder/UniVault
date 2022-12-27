@@ -52,4 +52,8 @@ public class Sounds {
         repeat(player,player.getLocation(),Sound.BLOCK_NOTE_BLOCK_BELL,1,10F,3,5);
         player.playSound(player.getLocation(),Sound.BLOCK_ENDER_CHEST_CLOSE,10,0.1F);
     }
+
+    public static void error(Player player) {
+        repeat(player,player.getLocation(),Sound.BLOCK_NOTE_BLOCK_BASS,10,0.1F,2,5);
+    }
 }

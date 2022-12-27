@@ -25,7 +25,7 @@ commands:
     description: Creates a hand-picked kit
     usage: §4Correct Usage >> §7/handpicked <action> <saved kit>
     permission: univault.handpicked
-    permission-message: §4You do not have access to this!
+    permission-message: §7[§3§lUni§b§lV§7] §4You do not have access to this!
   testitem:
     description: Tests an item's item
     usage: §4Correct Usage >> §7/testitem
@@ -36,4 +36,9 @@ commands:
     description: Gives a submission chest
     usage: §4Correct Usage >> §7/givesubmissionchest
     permission: univault.givesubmissionchest
-    permission-message: §4You do not have access to this!
+    permission-message: §7[§3§lUni§b§lV§7] §4You do not have access to this!
+  archive:
+    description: Spawns or manages the archives
+    usage: §4Correct Usage >> §7/archive <action>
+    permission: univault.archive
+    permission-message: §7[§3§lUni§b§lV§7] §4You do not have access to this!

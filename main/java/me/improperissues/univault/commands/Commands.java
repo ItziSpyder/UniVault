@@ -1,8 +1,10 @@
 package me.improperissues.univault.commands;
 
+import me.improperissues.univault.UniVault;
 import me.improperissues.univault.data.*;
 import me.improperissues.univault.events.ShelfClickEvent;
 import me.improperissues.univault.other.Sounds;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -18,7 +20,7 @@ public class Commands implements CommandExecutor {
                 case "vault":
                     // if the player is not oped and the command requires op deny access
                     if (!sender.isOp() && Config.getRequiresOp()) {
-                        sender.sendMessage("§4You cannot use this command!");
+                        sender.sendMessage(UniVault.STARTER + "§4You cannot use this command!");
                         return true;
                     }
                     // makes sure the index is within bounds
@@ -35,13 +37,12 @@ public class Commands implements CommandExecutor {
                     // load and gets the instance of the class, then opens the inventory and sends a message
                     Page page = Page.load(index);
                     page.createInventory((Player) sender);
-                    sender.sendMessage("§dOpening vault " + index + "...");
                     Sounds.openVault((Player) sender);
                     return true;
                 case "review":
                     // permission check
                     if (!sender.isOp() && Config.getRequiresOp()) {
-                        sender.sendMessage("§4You cannot use this command!");
+                        sender.sendMessage(UniVault.STARTER + "§4You cannot use this command!");
                         return true;
                     }
                     // open inventory
@@ -52,19 +53,16 @@ public class Commands implements CommandExecutor {
                             if (args.length == 1) viewIndex = (int) Math.ceil(Shelf.STOREDITEMS.size() / 54.0);
                             Shelf.openItems((Player) sender,viewIndex - 1);
                             Sounds.openVault((Player) sender);
-                            sender.sendMessage("§dOpening shelf:all " + viewIndex + "...");
                             return true;
                         case "shulker":
                             if (args.length == 1) viewIndex = (int) Math.ceil(Shelf.STOREDSHULKERS.size() / 54.0);
                             Shelf.openShulker((Player) sender,viewIndex - 1);
                             Sounds.openVault((Player) sender);
-                            sender.sendMessage("§dOpening shelf:shulker " + viewIndex + "...");
                             return true;
                         case "random":
                             if (args.length == 1) viewIndex = (int) Math.ceil(Shelf.STOREDRANDOM.size() / 54.0);
                             Shelf.openRandom((Player) sender,viewIndex - 1);
                             Sounds.openVault((Player) sender);
-                            sender.sendMessage("§dOpening shelf:random " + viewIndex + "...");
                             return true;
                         case "search":
                             if (args.length == 1) ShelfClickEvent.sendSearchMessage((Player) sender);
@@ -78,18 +76,17 @@ public class Commands implements CommandExecutor {
                     if (args.length == 0) {
                         // permission check
                         if (!Config.getEnableSubmissions()) {
-                            sender.sendMessage("§4Submissions are disabled at the moment!");
+                            sender.sendMessage(UniVault.STARTER + "§4Submissions are disabled at the moment!");
                             return true;
                         }
                         // open inventory
                         Shelf.openSubmit((Player) sender);
-                        Sounds.openVault((Player) sender);
-                        sender.sendMessage("§dOpening item submission menu...");
+                        Sounds.turnPage((Player) sender);
                         return true;
                     } else if (args.length == 2) {
                         // deletes an item according to provided index
                         if (!sender.isOp()) {
-                            sender.sendMessage("§4You cannot use this command!");
+                            sender.sendMessage(UniVault.STARTER + "§4You cannot use this command!");
                             return true;
                         }
                         if (args[0].equals("delete")) {
@@ -107,19 +104,19 @@ public class Commands implements CommandExecutor {
                             return true;
                         case "delete":
                             hp.delete();
-                            sender.sendMessage("§dDeleted " + hp.getName());
+                            sender.sendMessage(UniVault.STARTER + "§dDeleted " + hp.getName());
                             return true;
                         case "teleport":
                             ((Player) sender).teleport(hp.getLocation());
-                            sender.sendMessage("§dTeleported to " + hp.getName());
+                            sender.sendMessage(UniVault.STARTER + "§dTeleported to " + hp.getName());
                             return true;
                         case "open":
                             hp.createInventory((Player) sender);
-                            sender.sendMessage("§dOpening " + hp.getName());
+                            sender.sendMessage(UniVault.STARTER + "§dOpening " + hp.getName());
                             return true;
                         case "edit":
                             hp.editInventory((Player) sender);
-                            sender.sendMessage("§dOpening edit menu of " + hp.getName());
+                            sender.sendMessage(UniVault.STARTER + "§dOpening edit menu of " + hp.getName());
                             return true;
                     }
                     return false;
@@ -131,8 +128,33 @@ public class Commands implements CommandExecutor {
                     return true;
                 case "givesubmissionchest":
                     ((Player) sender).getInventory().setItemInMainHand(Items.SUBMITCHEST);
-                    sender.sendMessage("§dGave a submission chest!");
+                    sender.sendMessage(UniVault.STARTER + "§dGave a submission chest!");
                     return true;
+                case "archive":
+                    switch (args[0]) {
+                        case "generate":
+                            Archive.setArchives((Player) sender);
+                            return true;
+                        case "setorigin":
+                            Archive.setOrigin((Player) sender);
+                            return true;
+                        case "teleport":
+                            Location origin = UniVault.getInstance().getConfig().getLocation("config.archive.origin");
+                            ((Player) sender).teleport(origin);
+                            sender.sendMessage(UniVault.STARTER + "§dTeleported you to the archives!");
+                            return true;
+                        case "delete":
+                            Archive.setArchivesAir();
+                            UniVault.getInstance().getConfig().set("config.archive.origin",null);
+                            UniVault.getInstance().saveConfig();
+                            sender.sendMessage(UniVault.STARTER + "§dDeleted current archive!");
+                            return true;
+                        case "setair":
+                            Archive.setArchivesAir();
+                            sender.sendMessage(UniVault.STARTER + "§dSet archive to air!");
+                            return true;
+                    }
+                    return false;
             }
         } catch (Exception exception) {
             // if the command generates or throws and exception, state the cause and print the exception to the command sender

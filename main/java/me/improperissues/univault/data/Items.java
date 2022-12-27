@@ -168,13 +168,12 @@ public class Items {
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName("§cNULL");
         meta.setLore(new ArrayList<>(Arrays.asList(
-                "§7This item is null because",
-                "§7it didn't meet the required",
-                "§7conditions to be saved to a file.",
-                "§7This could mean that the item",
-                "§7nbt was too large or too small.",
-                "§7This can be configured in the",
-                "§7plugin config"
+                "§7The item you're looking for",
+                "§7turned out to be null, this",
+                "§7may be a result of the item",
+                "§7not being able to pass the",
+                "§7verification checks or an",
+                "§7internal error."
         )));
         item.setItemMeta(meta);
         addFoil(item);

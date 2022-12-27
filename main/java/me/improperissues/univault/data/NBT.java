@@ -1,9 +1,8 @@
 package me.improperissues.univault.data;
 
+import me.improperissues.univault.UniVault;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-
-import static org.bukkit.Bukkit.getServer;
 
 public class NBT {
 
@@ -22,7 +21,7 @@ public class NBT {
 
     public static boolean submittable(ItemStack item) {
         String display = getDisplay(item);
-        return passable(item) && !willDuplicate(item) && !(display.equals(" ") || display.contains(getDisplay(Items.SUBMIT))
+        return passable(item) && !willDuplicate(item) && !item.getType().isAir() && !(display.equals(" ") || display.contains(getDisplay(Items.SUBMIT))
                 || display.contains(getDisplay(Items.SEARCH)) || display.contains(getDisplay(Items.NULL))
                 || display.contains(getDisplay(Items.RANDOMITEMS)) || display.contains(getDisplay(Items.ALLITEMS))
                 || display.contains(getDisplay(Items.SHULKERITEMS)) || display.contains("§eRANDOM ITEM"));
@@ -37,30 +36,30 @@ public class NBT {
     public static void testItem(Player player) {
         ItemStack item = player.getInventory().getItemInMainHand();
         if (item.getType().isAir()) {
-            player.sendMessage("§4Air does not have nbt!");
+            player.sendMessage(UniVault.STARTER + "§4Air does not have nbt!");
             return;
         }
         int nbt = getNBTLength(item);
-        player.sendMessage("§7" + item.getType().name() + " §6has §7" + nbt + " §6characters worth of nbt data!");
+        player.sendMessage(UniVault.STARTER + "§7" + item.getType().name() + " §6has §7" + nbt + " §6characters worth of nbt data!");
         if (nbt > Config.getMaxNBT()) {
-            player.sendMessage("§6This item's nbt is §7" + (nbt - Config.getMaxNBT()) + " §6characters over limit!");
+            player.sendMessage(UniVault.STARTER + "§6This item's nbt is §7" + (nbt - Config.getMaxNBT()) + " §6characters over limit!");
         } else if (nbt < Config.getMinNBT()) {
-            player.sendMessage("§6This item's nbt is §7" + (Config.getMinNBT() - nbt) + " §6characters under limit!");
+            player.sendMessage(UniVault.STARTER + "§6This item's nbt is §7" + (Config.getMinNBT() - nbt) + " §6characters under limit!");
         } else {
-            player.sendMessage("§6This item's nbt is within limits!");
+            player.sendMessage(UniVault.STARTER + "§6This item's nbt is within limits!");
         }
-        player.sendMessage("§6Item duplicates: §7" + willDuplicate(item));
+        player.sendMessage(UniVault.STARTER + "§6Item duplicates: §7" + willDuplicate(item));
     }
 
     public static void readItem(Player player) {
         ItemStack item = player.getInventory().getItemInMainHand();
         if (item.getType().isAir()) {
-            player.sendMessage("§4Air does not have nbt!");
+            player.sendMessage(UniVault.STARTER + "§4Air does not have nbt!");
             return;
         }
         String nbt = getNBT(item).toLowerCase().replaceAll("§","&");
         nbt = (nbt.length() < 262144 ? nbt : "§cString value is too big!");
-        player.sendMessage("§7" + item.getType().name() + " §6has the following data: §a" + nbt);
+        player.sendMessage(UniVault.STARTER + "§7" + item.getType().name() + " §6has the following data: §a" + nbt);
     }
 
     public static String getDisplay(ItemStack item) {

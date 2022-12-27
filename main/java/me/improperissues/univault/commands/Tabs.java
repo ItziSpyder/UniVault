@@ -69,6 +69,17 @@ public class Tabs implements TabCompleter {
             case "testitem":
             case "givesubmissionchest":
                 break;
+            case "archive":
+                switch (args.length) {
+                    case 1:
+                        list.add("setorigin");
+                        list.add("generate");
+                        list.add("teleport");
+                        list.add("setair");
+                        list.add("delete");
+                        break;
+                }
+                break;
         }
 
         return list;

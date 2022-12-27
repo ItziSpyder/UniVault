@@ -13,6 +13,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class UniVault extends JavaPlugin {
 
+    public static String STARTER = "§7[§3§lUni§b§lV§7] §";
+
     @Override
     public void onEnable() {
         // Plugin startup logic
@@ -52,6 +54,9 @@ public final class UniVault extends JavaPlugin {
         getCommand("testitem").setTabCompleter(new Tabs());
         getCommand("givesubmissionchest").setExecutor(new Commands());
         getCommand("givesubmissionchest").setTabCompleter(new Tabs());
+        getCommand("archive").setExecutor(new Commands());
+        getCommand("archive").setTabCompleter(new Tabs());
+        
 
         // Register items
         Items.registerItems();

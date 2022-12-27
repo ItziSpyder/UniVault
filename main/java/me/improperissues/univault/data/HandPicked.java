@@ -1,5 +1,6 @@
 package me.improperissues.univault.data;
 
+import me.improperissues.univault.UniVault;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -23,7 +24,7 @@ public class HandPicked {
 
     public static void createItem(Player player, String name) {
         if (!player.getGameMode().equals(GameMode.CREATIVE) || !player.isOp()) {
-            player.sendMessage("§4You do not have access to this!");
+            player.sendMessage(UniVault.STARTER + "§4You do not have access to this!");
             return;
         }
         ItemStack item = new ItemStack(Material.CHEST);
@@ -40,7 +41,7 @@ public class HandPicked {
         )));
         item.setItemMeta(meta);
         player.getInventory().setItemInMainHand(item);
-        player.sendMessage("§dGave one handpicked chest! \"" + name + "\"");
+        player.sendMessage(UniVault.STARTER + "§dGave one handpicked chest! \"" + name + "\"");
     }
 
     public static File PARENTFOLDER = new File("plugins/UniVault/handpicked");

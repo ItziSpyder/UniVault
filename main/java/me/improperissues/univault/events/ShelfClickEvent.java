@@ -1,5 +1,6 @@
 package me.improperissues.univault.events;
 
+import me.improperissues.univault.UniVault;
 import me.improperissues.univault.data.Config;
 import me.improperissues.univault.data.Items;
 import me.improperissues.univault.data.Shelf;
@@ -9,6 +10,7 @@ import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,9 +20,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class ShelfClickEvent implements Listener {
 
@@ -61,14 +61,16 @@ public class ShelfClickEvent implements Listener {
                         p.sendMessage("§4This action is on cooldown for another " + sec + " seconds!");
                         return;
                     }
-                    if (Shelf.filterForSubmission(inv.getContents()).length == 0) {
+                    ItemStack[] filtered = Shelf.filterForSubmission(inv.getContents());
+                    if (filtered.length == 0) {
                         p.closeInventory();
-                        p.sendMessage("§4Submission failed since non of the provided items are submittable!");
+                        p.sendMessage(UniVault.STARTER + "§4Submission failed since non of the provided items are submittable!");
                         return;
                     }
                     cooldown.put(p.getName(),System.currentTimeMillis() + (1000L * Config.getCooldown()));
                     // item submission
-                    p.sendMessage("§dSubmitting items...");
+                    p.sendMessage(UniVault.STARTER + "§dSubmitting items...");
+                    p.sendMessage(UniVault.STARTER + "§d§lItems submitted! [§e§l" + filtered.length + "§d§l/5] items were successfully submitted!");
                     Shelf.submitItemList(inv.getContents());
                     p.closeInventory();
                     Sounds.closeVault(p);
@@ -97,12 +99,29 @@ public class ShelfClickEvent implements Listener {
                 if (inv.getType().equals(InventoryType.PLAYER)) {
                     return;
                 }
+                if (display.equals(" ")) {
+                    e.setCancelled(true);
+                    return;
+                }
                 if (display.equals(getDisplay(Items.SUBMISSION))) {
                     e.setCancelled(true);
                     p.chat("/submit");
                 } else if (display.equals(getDisplay(Items.SEARCH))) {
                     e.setCancelled(true);
                     p.chat("/review search");
+                }
+            } else if (title.contains("§c#SEARCH_QUERY")) {
+                Sounds.repeat(p,p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL,1,10,3,5);
+                if (!inv.getType().equals(InventoryType.ANVIL)) {
+                    return;
+                }
+                p.sendMessage("" + e.getSlot());
+                p.sendMessage(getDisplay(inv.getItem(e.getSlot())));
+                p.sendMessage("" + e.getRawSlot());
+                p.sendMessage(getDisplay(inv.getItem(e.getRawSlot())));
+                if (item.getType().equals(Material.GREEN_STAINED_GLASS_PANE)) {
+                    e.setCancelled(true);
+                    p.chat("/review search #:" + getDisplay(inv.getItem(e.getSlot())));
                 }
             }
         } catch (NullPointerException exception) {
@@ -131,13 +150,14 @@ public class ShelfClickEvent implements Listener {
                 a,a,a,a,a,a,a,a,a,
                 Items.SEARCH,x,x,x,x,x,x,x,Items.SUBMISSION
         });
-        List<ItemStack> adds = new ArrayList<>(Shelf.STOREDITEMS);
-        adds.removeIf(item -> !(getDisplay(item).toLowerCase().contains(query) || item.getType().name().toLowerCase().contains(query)));
-        for (int i = 0; i < 45; i ++) {
+        for (int i = 0; i < 500; i ++) {
             try {
-                menu.setItem(menu.firstEmpty(),adds.get(i));
-            } catch (IndexOutOfBoundsException exception) {
-                break;
+                ItemStack item = Shelf.STOREDITEMS.get(i);
+                if (getDisplay(item).toLowerCase().contains(query) || item.getType().name().toLowerCase().contains(query)) {
+                    menu.setItem(menu.firstEmpty(),Shelf.STOREDITEMS.get(i));
+                }
+            } catch (IndexOutOfBoundsException | NullPointerException exception) {
+                // empty
             }
         }
         player.openInventory(menu);
