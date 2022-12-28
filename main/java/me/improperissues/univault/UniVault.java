@@ -6,6 +6,7 @@ import me.improperissues.univault.data.Items;
 import me.improperissues.univault.data.Shelf;
 import me.improperissues.univault.events.HandPickedEvent;
 import me.improperissues.univault.events.PageClickEvent;
+import me.improperissues.univault.events.PlayerEntityEvent;
 import me.improperissues.univault.events.ShelfClickEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
@@ -34,6 +35,7 @@ public final class UniVault extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PageClickEvent(),this);
         getServer().getPluginManager().registerEvents(new ShelfClickEvent(),this);
         getServer().getPluginManager().registerEvents(new HandPickedEvent(),this);
+        getServer().getPluginManager().registerEvents(new PlayerEntityEvent(),this);
 
         // Files
         getConfig().options().copyDefaults(true);

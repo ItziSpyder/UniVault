@@ -38,6 +38,10 @@ public class Config {
         return config.getBoolean("config.submissions.duplicates");
     }
 
+    public static boolean getJoinClear() {
+        return config.getBoolean("config.general.join_clear");
+    }
+
     public static int getCooldown() {
         return config.getInt("config.submissions.cooldown");
     }
@@ -72,5 +76,9 @@ public class Config {
 
     public static void setCooldown(int cooldown) {
         config.set("config.submissions.cooldown",cooldown);
+    }
+
+    public static void setJoinClear(boolean joinClear) {
+        config.set("config.general.join_clear",joinClear);
     }
 }

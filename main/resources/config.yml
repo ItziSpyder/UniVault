@@ -1,5 +1,6 @@
 config:
   general:
+    join_clear: false
     max_pages: 50
     max_nbt_length: 5000
     min_nbt_length: 10
