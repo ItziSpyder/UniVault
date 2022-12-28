@@ -2,6 +2,7 @@ package me.improperissues.univault;
 
 import me.improperissues.univault.commands.Commands;
 import me.improperissues.univault.commands.Tabs;
+import me.improperissues.univault.data.Config;
 import me.improperissues.univault.data.Items;
 import me.improperissues.univault.data.Shelf;
 import me.improperissues.univault.events.HandPickedEvent;
@@ -14,7 +15,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class UniVault extends JavaPlugin {
 
-    public static String STARTER = "§7[§3§lUni§b§lV§7] §";
+    public static String STARTER = Config.getPluginPrefix();
 
     @Override
     public void onEnable() {

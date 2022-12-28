@@ -1,4 +1,6 @@
 config:
+  plugin:
+    prefix: '§7[§3§lUni§b§lV§7] §'
   general:
     join_clear: false
     max_pages: 50

@@ -46,6 +46,12 @@ public class Config {
         return config.getInt("config.submissions.cooldown");
     }
 
+    public static String getPluginPrefix() {
+        String prefix = config.getString("config.plugin.prefix");
+        if (prefix == null || prefix.equals("")) prefix = "§7[§3§lUni§b§lV§7] §";
+        return prefix;
+    }
+
     public static void setMaxPages(int maxPages) {
         config.set("config.general.max_pages",maxPages);
     }
@@ -80,5 +86,9 @@ public class Config {
 
     public static void setJoinClear(boolean joinClear) {
         config.set("config.general.join_clear",joinClear);
+    }
+
+    public static void setPluginPrefix(String prefix) {
+        config.set("config.plugin.prefix",prefix);
     }
 }
