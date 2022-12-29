@@ -37,8 +37,8 @@ public class Archive {
 
     public static void setArchivesAir() {
         Location origin = UniVault.getInstance().getConfig().getLocation("config.archive.origin");
-        fillType(origin.clone().add(-300,-1,-4),origin.clone().add(300,7,4),Material.AIR);
-        fillType(origin.clone().add(-4,-1,-300),origin.clone().add(4,7,300),Material.AIR);
+        fillType(origin.clone().add(-304,-1,-4),origin.clone().add(304,7,4),Material.AIR);
+        fillType(origin.clone().add(-4,-1,-304),origin.clone().add(4,7,304),Material.AIR);
     }
 
     public static void setOrigin(Player player) {
