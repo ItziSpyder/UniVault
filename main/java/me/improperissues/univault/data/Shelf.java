@@ -3,12 +3,14 @@ package me.improperissues.univault.data;
 import me.improperissues.univault.UniVault;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.File;
@@ -157,6 +159,8 @@ public class Shelf {
     public static void submitItemList(ItemStack[] contents) {
         // submits a list of items to the main big list, then calls the function
         // #saveItemList(); to save the big list into separate files
+
+        // THIS IS THE SECOND FILTER CHECK, OUT OF TWO TOTAL
         List<ItemStack> items = new ArrayList<>(Arrays.asList(filterForSubmission(contents)));
         STOREDITEMS.addAll(items);
         saveItemList();
@@ -170,6 +174,9 @@ public class Shelf {
                 // submission items cannot have the same display names as the menu sprites
                 // submission items cannot duplicate with the items in the big list
                 item.setAmount(1);
+                ItemMeta meta = item.getItemMeta();
+                meta.getPersistentDataContainer().set(new NamespacedKey(UniVault.getInstance(),"FROM"), PersistentDataType.STRING,Config.getWaterMark());
+                item.setItemMeta(meta);
                 if (NBT.submittable(item) && !result.contains(item)) result.add(item);
             } catch (NullPointerException exception) {
                 // empty
@@ -198,7 +205,7 @@ public class Shelf {
                 a,a,a,a,a,a,a,a,a,
                 a,a,a,a,a,a,a,a,a,
                 a,a,a,a,a,a,a,a,a,
-                x,x,x,Items.BACK,x,Items.NEXT,x,x,x
+                Items.SEARCH,x,x,Items.BACK,x,Items.NEXT,x,x,Items.SUBMISSION
         });
         // add the contents for all item types
         for (int i = (index * 45); i < (index * 45) + 45; i ++) {
@@ -223,7 +230,7 @@ public class Shelf {
                 a,a,a,a,a,a,a,a,a,
                 a,a,a,a,a,a,a,a,a,
                 a,a,a,a,a,a,a,a,a,
-                x,x,x,Items.BACK,x,Items.NEXT,x,x,x
+                Items.SEARCH,x,x,Items.BACK,x,Items.NEXT,x,x,Items.SUBMISSION
         });
         // add the contents for all item types
         for (int i = (index * 45); i < (index * 45) + 45; i ++) {
@@ -248,7 +255,7 @@ public class Shelf {
                 a,a,a,a,a,a,a,a,a,
                 a,a,a,a,a,a,a,a,a,
                 a,a,a,a,a,a,a,a,a,
-                x,x,x,Items.BACK,x,Items.NEXT,x,x,x
+                Items.SEARCH,x,x,Items.BACK,x,Items.NEXT,x,x,Items.SUBMISSION
         });
         // add the contents for all item types
         for (int i = (index * 45); i < (index * 45) + 45; i ++) {

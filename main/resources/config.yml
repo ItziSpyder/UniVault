@@ -1,6 +1,7 @@
 config:
   plugin:
     prefix: '§7[§3§lUni§b§lV§7] §'
+    watermark: 'Plugin by ImproperIssues, visit "github.com/ItziSpyder/UniVault"'
   player:
     max_speed: 2.5
   general:

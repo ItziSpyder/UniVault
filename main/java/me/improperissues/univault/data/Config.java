@@ -50,6 +50,12 @@ public class Config {
         return config.getInt("config.player.max_speed");
     }
 
+    public static String getWaterMark() {
+        String mark = config.getString("config.plugin.watermark");
+        if (mark == null) mark = "Plugin by ImproperIssues, visit \"github.com/ItziSpyder/UniVault\"";
+        return mark;
+    }
+
     public static String getPluginPrefix() {
         String prefix = config.getString("config.plugin.prefix");
         if (prefix == null || prefix.equals("")) prefix = "§7[§3§lUni§b§lV§7] §";

@@ -61,6 +61,7 @@ public class ShelfClickEvent implements Listener {
                         p.sendMessage("§4This action is on cooldown for another " + sec + " seconds!");
                         return;
                     }
+                    // THIS IS THE FIRST FILTER CHECK, OUT OF TWO TOTAL
                     ItemStack[] filtered = Shelf.filterForSubmission(inv.getContents());
                     if (filtered.length == 0) {
                         p.closeInventory();
@@ -158,6 +159,15 @@ public class ShelfClickEvent implements Listener {
                     if (title.contains("ALL")) {
                         p.chat("/review all " + currentPage);
                     }
+                }
+                if (display.equals(getDisplay(Items.SUBMISSION))) {
+                    e.setCancelled(true);
+                    p.chat("/submit");
+                }
+                if (display.equals(getDisplay(Items.SEARCH))) {
+                    e.setCancelled(true);
+                    p.closeInventory();
+                    p.chat("/review search");
                 }
             }
         } catch (NullPointerException exception) {
