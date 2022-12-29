@@ -32,14 +32,18 @@ public class MovementCancelEvent implements Listener {
     }
 
     public static void clearWarnings() {
-        WARNING_COUNT.forEach((player,integer) -> {
-            if (integer >= 3) {
-                Player p = Bukkit.getPlayer(player);
-                if (p != null) Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),"kick " + p.getName()
-                + " " + UniVault.STARTER + "cYou were moving incorrectly!\nPlease do not abuse or exploit movement glitches!"
-                + "\n\n§7Believe this was in error? Please visit §b§nhttps://github.com/ItziSpyder/UniVault");
-            }
-            WARNING_COUNT.remove(player);
-        });
+        try {
+            WARNING_COUNT.forEach((player,integer) -> {
+                if (integer >= 3) {
+                    Player p = Bukkit.getPlayer(player);
+                    if (p != null) Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),"kick " + p.getName()
+                            + " " + UniVault.STARTER + "cYou were moving incorrectly!\nPlease do not abuse or exploit movement glitches!"
+                            + "\n\n§7Believe this was in error? Please visit §b§nhttps://github.com/ItziSpyder/UniVault");
+                }
+                WARNING_COUNT.remove(player);
+            });
+        } catch (Exception exception) {
+            // empty
+        }
     }
 }
