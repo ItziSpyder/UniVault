@@ -46,49 +46,13 @@ public class Config {
         return config.getInt("config.submissions.cooldown");
     }
 
+    public static double getMaxPlayerSpeed() {
+        return config.getInt("config.player.max_speed");
+    }
+
     public static String getPluginPrefix() {
         String prefix = config.getString("config.plugin.prefix");
         if (prefix == null || prefix.equals("")) prefix = "§7[§3§lUni§b§lV§7] §";
         return prefix;
-    }
-
-    public static void setMaxPages(int maxPages) {
-        config.set("config.general.max_pages",maxPages);
-    }
-
-    public static void setMaxNBT(int maxNBTLength) {
-        config.set("config.general.max_nbt_length",getMinNBT());
-    }
-
-    public static void setMinNBT(int minNBTLength) {
-        config.set("config.general.min_nbt_length",minNBTLength);
-    }
-
-    public static void setRequiresOp(boolean requiresOp) {
-        config.set("config.permissions.requires_op",requiresOp);
-    }
-
-    public static void setNonopEdit(boolean nonopEdit) {
-        config.set("config.permissions.nonop_edit",nonopEdit);
-    }
-
-    public static void setEnableSubmissions(boolean enableSubmissions) {
-        config.set("config.submissions.enabled",enableSubmissions);
-    }
-
-    public static void setDuplicates(boolean duplicates) {
-        config.set("config.submissions.duplicates",duplicates);
-    }
-
-    public static void setCooldown(int cooldown) {
-        config.set("config.submissions.cooldown",cooldown);
-    }
-
-    public static void setJoinClear(boolean joinClear) {
-        config.set("config.general.join_clear",joinClear);
-    }
-
-    public static void setPluginPrefix(String prefix) {
-        config.set("config.plugin.prefix",prefix);
     }
 }

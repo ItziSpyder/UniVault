@@ -1,6 +1,8 @@
 config:
   plugin:
     prefix: '§7[§3§lUni§b§lV§7] §'
+  player:
+    max_speed: 2.5
   general:
     join_clear: false
     max_pages: 50

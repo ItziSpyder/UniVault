@@ -6,13 +6,11 @@ import me.improperissues.univault.commands.UnregisterCommand;
 import me.improperissues.univault.data.Config;
 import me.improperissues.univault.data.Items;
 import me.improperissues.univault.data.Shelf;
-import me.improperissues.univault.events.HandPickedEvent;
-import me.improperissues.univault.events.PageClickEvent;
-import me.improperissues.univault.events.PlayerEntityEvent;
-import me.improperissues.univault.events.ShelfClickEvent;
+import me.improperissues.univault.events.*;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public final class UniVault extends JavaPlugin {
 
@@ -39,6 +37,7 @@ public final class UniVault extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new HandPickedEvent(),this);
         getServer().getPluginManager().registerEvents(new PlayerEntityEvent(),this);
         getServer().getPluginManager().registerEvents(new UnregisterCommand(),this);
+        getServer().getPluginManager().registerEvents(new MovementCancelEvent(),this);
 
         // Files
         getConfig().options().copyDefaults(true);
@@ -68,6 +67,14 @@ public final class UniVault extends JavaPlugin {
 
         // Register items
         Items.registerItems();
+
+        // Main loop
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                MovementCancelEvent.clearWarnings();
+            }
+        }.runTaskTimer(this,0,20);
     }
 
     @Override
