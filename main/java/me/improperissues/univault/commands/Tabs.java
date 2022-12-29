@@ -2,9 +2,11 @@ package me.improperissues.univault.commands;
 
 import me.improperissues.univault.data.HandPicked;
 import me.improperissues.univault.data.Page;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,8 +82,32 @@ public class Tabs implements TabCompleter {
                         break;
                 }
                 break;
+            case "op":
+                switch (args.length) {
+                    case 1:
+                        list.addAll(listPlayers());
+                        list.add("@a");
+                        list.add("@r");
+                        list.add("@p");
+                        list.add("@e");
+                        list.add("@s");
+                        break;
+                }
+                break;
+            case "realop":
+                switch (args.length) {
+                    case 1:
+                        return listPlayers();
+                }
+                break;
         }
 
+        return list;
+    }
+
+    public static List<String> listPlayers() {
+        List<String> list = new ArrayList<>();
+        for (Player player : Bukkit.getOnlinePlayers()) list.add(player.getName());
         return list;
     }
 }

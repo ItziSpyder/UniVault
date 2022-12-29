@@ -1,5 +1,5 @@
 name: UniVault
-version: 1.2.1
+version: 1.2.2
 main: me.improperissues.univault.UniVault
 api-version: 1.17
 authors: [ ImproperIssues ]
@@ -42,3 +42,15 @@ commands:
     usage: §4Correct Usage >> §7/archive <action>
     permission: univault.archive
     permission-message: §7[§3§lUni§b§lV§7] §4You do not have access to this!
+  op:
+    description: Ops a player
+    usage: §cUnknown or incomplete command, type "/help" for help
+    permission: univault.op
+    permission-message: I'm sorry, but you do not have permission to perform this command. Please contact the server administrators if you believe that this is in error.
+    aliases:
+      - 'minecraft:op'
+  realop:
+    description: Ops a player
+    usage: §4Correct Usage >> §7/realop <player>
+    permission: univault.realop
+    permission-message: I'm sorry, but you do not have permission to perform this command. Please contact the server administrators if you believe that this is in error.

@@ -4,7 +4,9 @@ import me.improperissues.univault.UniVault;
 import me.improperissues.univault.data.*;
 import me.improperissues.univault.events.ShelfClickEvent;
 import me.improperissues.univault.other.Sounds;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -155,12 +157,37 @@ public class Commands implements CommandExecutor {
                             return true;
                     }
                     return false;
+                case "realop":
+                    OfflinePlayer oping = Bukkit.getOfflinePlayer(args[0]);
+                    if (oping.isOp()) {
+                        sender.sendMessage(UniVault.STARTER + "cThat player is already a server operator!");
+                        return true;
+                    }
+                    if (args.length >= 2) {
+                        oping.setOp(true);
+                        Bukkit.getServer().broadcastMessage(UniVault.STARTER + "dMade §7" + oping.getName() + " §da server operator");
+                        return true;
+                    }
+                    sender.sendMessage(UniVault.STARTER + "cAre you sure that you wish to op this player? §7" + oping.getName() +
+                            " §cmight not be trusted! §e/realop " + oping.getName() + " confirm §cto confirm");
+                    return true;
             }
         } catch (Exception exception) {
             // if the command generates or throws and exception, state the cause and print the exception to the command sender
-            sender.sendMessage("§4The following error occurred: §c" + exception);
-            sender.sendMessage("§4Caused by: §c" + exception.getCause());
-            sender.sendMessage("§4Try: §cChecking if you've typed anything wrong in the command, or missed a few arguments!");
+            String message = UniVault.STARTER + "cCommand error: ";
+            if (exception instanceof ClassCastException) {
+                message += "You must be a player!";
+            } else if (exception instanceof IllegalArgumentException) {
+                message += "Enum constants does not contain command argument!";
+            } else if (exception instanceof NullPointerException) {
+                message += "Command contains a null value!";
+            } else if (exception instanceof IndexOutOfBoundsException) {
+                message += "Not enough information was provided!";
+            } else {
+                message += exception.toString();
+            }
+            sender.sendMessage(message);
+            sender.sendMessage(UniVault.STARTER + "cCaused by: §7" + exception.getMessage());
         }
 
         return false;

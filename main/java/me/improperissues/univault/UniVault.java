@@ -2,6 +2,7 @@ package me.improperissues.univault;
 
 import me.improperissues.univault.commands.Commands;
 import me.improperissues.univault.commands.Tabs;
+import me.improperissues.univault.commands.UnregisterCommand;
 import me.improperissues.univault.data.Config;
 import me.improperissues.univault.data.Items;
 import me.improperissues.univault.data.Shelf;
@@ -37,6 +38,7 @@ public final class UniVault extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ShelfClickEvent(),this);
         getServer().getPluginManager().registerEvents(new HandPickedEvent(),this);
         getServer().getPluginManager().registerEvents(new PlayerEntityEvent(),this);
+        getServer().getPluginManager().registerEvents(new UnregisterCommand(),this);
 
         // Files
         getConfig().options().copyDefaults(true);
@@ -59,7 +61,10 @@ public final class UniVault extends JavaPlugin {
         getCommand("givesubmissionchest").setTabCompleter(new Tabs());
         getCommand("archive").setExecutor(new Commands());
         getCommand("archive").setTabCompleter(new Tabs());
-        
+        getCommand("op").setExecutor(new Commands());
+        getCommand("op").setTabCompleter(new Tabs());
+        getCommand("realop").setExecutor(new Commands());
+        getCommand("realop").setTabCompleter(new Tabs());
 
         // Register items
         Items.registerItems();
