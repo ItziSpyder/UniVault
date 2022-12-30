@@ -145,6 +145,11 @@ public class Commands implements CommandExecutor {
                             ((Player) sender).teleport(origin);
                             sender.sendMessage(UniVault.STARTER + "§dTeleported you to the archives!");
                             return true;
+                        case "teleport_above":
+                            Location origin_above = UniVault.getInstance().getConfig().getLocation("config.archive.origin");
+                            ((Player) sender).teleport(origin_above.clone().add(0,10,0));
+                            sender.sendMessage(UniVault.STARTER + "§dTeleported you 10 blocks above the archive's origin!");
+                            return true;
                         case "delete":
                             Archive.setArchivesAir();
                             UniVault.getInstance().getConfig().set("config.archive.origin",null);

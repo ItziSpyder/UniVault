@@ -77,6 +77,7 @@ public class Tabs implements TabCompleter {
                         list.add("setorigin");
                         list.add("generate");
                         list.add("teleport");
+                        list.add("teleport_above");
                         list.add("setair");
                         list.add("delete");
                         break;
