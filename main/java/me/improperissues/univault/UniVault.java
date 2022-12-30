@@ -2,7 +2,7 @@ package me.improperissues.univault;
 
 import me.improperissues.univault.commands.Commands;
 import me.improperissues.univault.commands.Tabs;
-import me.improperissues.univault.commands.UnregisterCommand;
+import me.improperissues.univault.commands.UnregisteredCommands;
 import me.improperissues.univault.data.Config;
 import me.improperissues.univault.data.Items;
 import me.improperissues.univault.data.Shelf;
@@ -32,15 +32,19 @@ public final class UniVault extends JavaPlugin {
         Shelf.reloadItemList();
 
         // Files
-        getConfig().options().copyDefaults(true);
+        getConfig().options().copyDefaults();
         saveDefaultConfig();
+        getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
+            @Override public void run() {reloadConfig();}
+        },20);
+
 
         // Register events
         getServer().getPluginManager().registerEvents(new PageClickEvent(),this);
         getServer().getPluginManager().registerEvents(new ShelfClickEvent(),this);
         getServer().getPluginManager().registerEvents(new HandPickedEvent(),this);
         getServer().getPluginManager().registerEvents(new PlayerEntityEvent(),this);
-        getServer().getPluginManager().registerEvents(new UnregisterCommand(),this);
+        getServer().getPluginManager().registerEvents(new UnregisteredCommands(),this);
         getServer().getPluginManager().registerEvents(new MovementCancelEvent(),this);
 
         // Commands

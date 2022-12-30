@@ -60,11 +60,11 @@ public class Archive {
             player.sendMessage(UniVault.STARTER + "§4There is no set origin for the archive!");
             return;
         }
-        fillType(loc.clone().add(-300,-1,-4),loc.clone().add(300,7,4),Material.LIGHT);
-        fillType(loc.clone().add(-4,-1,-300),loc.clone().add(4,7,300),Material.LIGHT);
+        fillType(loc.clone().add(-304,-1,-4),loc.clone().add(304,7,4),Material.LIGHT);
+        fillType(loc.clone().add(-4,-1,-304),loc.clone().add(4,7,304),Material.LIGHT);
 
-        fillType(loc.clone().add(-300,-1,-4),loc.clone().add(300,-1,4),Material.ANDESITE);
-        fillType(loc.clone().add(-4,-1,-300),loc.clone().add(4,-1,300),Material.ANDESITE);
+        fillType(loc.clone().add(-304,-1,-4),loc.clone().add(304,-1,4),Material.ANDESITE);
+        fillType(loc.clone().add(-4,-1,-304),loc.clone().add(4,-1,304),Material.ANDESITE);
         fillType(loc.clone().add(-4,-1,-4),loc.clone().add(4,-1,4),Material.SPRUCE_WOOD);
         fillType(loc.clone().add(-3,-1,-3),loc.clone().add(3,-1,3),Material.STRIPPED_OAK_WOOD);
 

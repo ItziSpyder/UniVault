@@ -1,15 +1,13 @@
 package me.improperissues.univault.data;
 
+import me.improperissues.univault.UniVault;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 
-import java.io.File;
 import java.util.List;
 
 public class Config {
 
-    static File file = new File("plugins/UniVault/config.yml");
-    public static FileConfiguration config = YamlConfiguration.loadConfiguration(file);
+    public static FileConfiguration config = UniVault.getInstance().getConfig();
 
     public static int getMaxPages() {
         return config.getInt("config.general.max_pages");

@@ -47,8 +47,6 @@ commands:
     usage: §cUnknown or incomplete command, type "/help" for help
     permission: univault.op
     permission-message: I'm sorry, but you do not have permission to perform this command. Please contact the server administrators if you believe that this is in error.
-    aliases:
-      - 'minecraft:op'
   realop:
     description: Ops a player
     usage: §4Correct Usage >> §7/realop <player>

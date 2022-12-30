@@ -5,6 +5,11 @@ config:
   player:
     max_speed: 10.0
     command_delay: 1
+    delay_blacklist:
+      - /review
+      - /submit
+      - /vault
+      - /archive
   general:
     join_clear: false
     max_pages: 50

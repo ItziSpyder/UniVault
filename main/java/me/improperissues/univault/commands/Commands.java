@@ -168,8 +168,7 @@ public class Commands implements CommandExecutor {
                         Bukkit.getServer().broadcastMessage(UniVault.STARTER + "dMade §7" + oping.getName() + " §da server operator");
                         return true;
                     }
-                    sender.sendMessage(UniVault.STARTER + "cAre you sure that you wish to op this player? §7" + oping.getName() +
-                            " §cmight not be trusted! §e/realop " + oping.getName() + " confirm §cto confirm");
+                    sender.sendMessage(UniVault.STARTER + "cAre you sure that you wish to op this player? §7" + oping.getName() + " §cmight not be trusted! §e/realop " + oping.getName() + " confirm §cto confirm");
                     return true;
             }
         } catch (Exception exception) {
