@@ -14,7 +14,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public final class UniVault extends JavaPlugin {
 
-    public static String STARTER = Config.getPluginPrefix();
+    public static String STARTER;
 
     @Override
     public void onEnable() {
@@ -30,6 +30,7 @@ public final class UniVault extends JavaPlugin {
                 "\n========================================"
         );
         Shelf.reloadItemList();
+        STARTER = Config.getPluginPrefix();
 
         // Files
         getConfig().options().copyDefaults();
