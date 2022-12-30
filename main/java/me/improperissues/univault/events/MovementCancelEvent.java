@@ -23,7 +23,7 @@ public class MovementCancelEvent implements Listener {
         if (CANCEL_MOVEMENT.containsKey(p.getName()) && CANCEL_MOVEMENT.get(p.getName()) > System.currentTimeMillis()) e.setCancelled(true);
         Location prev = MOVEMENT_POSITIONS.get(p.getName());
         MOVEMENT_POSITIONS.put(p.getName(),p.getLocation());
-        if (prev != null && p.getLocation().distanceSquared(prev) > Config.getMaxPlayerSpeed()) {
+        if (prev != null && p.getLocation().distanceSquared(prev) > Config.getMaxPlayerSpeed() && Config.getMaxPlayerSpeed() > 0) {
             e.setCancelled(true);
             p.teleport(prev);
             if (WARNING_COUNT.get(p.getName()) != null) WARNING_COUNT.put(p.getName(),WARNING_COUNT.get(p.getName()) + 1); else WARNING_COUNT.put(p.getName(),1);

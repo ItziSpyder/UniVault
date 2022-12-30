@@ -31,6 +31,10 @@ public final class UniVault extends JavaPlugin {
         );
         Shelf.reloadItemList();
 
+        // Files
+        getConfig().options().copyDefaults(true);
+        saveDefaultConfig();
+
         // Register events
         getServer().getPluginManager().registerEvents(new PageClickEvent(),this);
         getServer().getPluginManager().registerEvents(new ShelfClickEvent(),this);
@@ -38,10 +42,6 @@ public final class UniVault extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerEntityEvent(),this);
         getServer().getPluginManager().registerEvents(new UnregisterCommand(),this);
         getServer().getPluginManager().registerEvents(new MovementCancelEvent(),this);
-
-        // Files
-        getConfig().options().copyDefaults(true);
-        saveDefaultConfig();
 
         // Commands
         getCommand("vault").setExecutor(new Commands());
