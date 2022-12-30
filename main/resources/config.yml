@@ -4,6 +4,7 @@ config:
     watermark: 'Plugin by ImproperIssues, visit "github.com/ItziSpyder/UniVault"'
   player:
     max_speed: 2.5
+    command_delay: 1
   general:
     join_clear: false
     max_pages: 50

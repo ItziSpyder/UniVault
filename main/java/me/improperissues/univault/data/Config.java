@@ -4,6 +4,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
+import java.util.List;
 
 public class Config {
 
@@ -48,6 +49,14 @@ public class Config {
 
     public static double getMaxPlayerSpeed() {
         return config.getInt("config.player.max_speed");
+    }
+
+    public static long getPlayerCommandDelay() {
+        return (long) (config.getDouble("config.player.command_delay") * 1000);
+    }
+
+    public static List<String> getDelayBlacklist() {
+        return config.getStringList("config.player.delay_blacklist");
     }
 
     public static String getWaterMark() {
