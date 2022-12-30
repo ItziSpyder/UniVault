@@ -3,7 +3,7 @@ config:
     prefix: '§7[§3§lUni§b§lV§7] §'
     watermark: 'Plugin by ImproperIssues, visit "github.com/ItziSpyder/UniVault"'
   player:
-    max_speed: 2.5
+    max_speed: 10.0
     command_delay: 1
   general:
     join_clear: false
