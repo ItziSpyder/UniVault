@@ -57,6 +57,11 @@ public class Config {
         return config.getStringList("config.player.delay_blacklist");
     }
 
+    public static boolean getArchiveBreakPlace() {
+        return config.getBoolean("config.archive.can_break_or_place");
+    }
+
+
     public static String getWaterMark() {
         String mark = config.getString("config.plugin.watermark");
         if (mark == null) mark = "Plugin by ImproperIssues, visit \"github.com/ItziSpyder/UniVault\"";

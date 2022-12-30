@@ -8,6 +8,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.block.Container;
 import org.bukkit.block.data.Directional;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class Archive {
 
@@ -37,8 +38,8 @@ public class Archive {
 
     public static void setArchivesAir() {
         Location origin = UniVault.getInstance().getConfig().getLocation("config.archive.origin");
-        fillType(origin.clone().add(-304,-1,-4),origin.clone().add(304,7,4),Material.AIR);
-        fillType(origin.clone().add(-4,-1,-304),origin.clone().add(4,7,304),Material.AIR);
+        fillType(origin.clone().add(-305,-1,-4),origin.clone().add(305,9,4),Material.AIR);
+        fillType(origin.clone().add(-4,-1,-305),origin.clone().add(4,9,305),Material.AIR);
     }
 
     public static void setOrigin(Player player) {
@@ -60,25 +61,79 @@ public class Archive {
             player.sendMessage(UniVault.STARTER + "§4There is no set origin for the archive!");
             return;
         }
-        fillType(loc.clone().add(-304,-1,-4),loc.clone().add(304,7,4),Material.LIGHT);
-        fillType(loc.clone().add(-4,-1,-304),loc.clone().add(4,7,304),Material.LIGHT);
-
-        fillType(loc.clone().add(-304,-1,-4),loc.clone().add(304,-1,4),Material.ANDESITE);
-        fillType(loc.clone().add(-4,-1,-304),loc.clone().add(4,-1,304),Material.ANDESITE);
-        fillType(loc.clone().add(-4,-1,-4),loc.clone().add(4,-1,4),Material.SPRUCE_WOOD);
-        fillType(loc.clone().add(-3,-1,-3),loc.clone().add(3,-1,3),Material.STRIPPED_OAK_WOOD);
-
-        Block submissionChest = loc.clone().add(0,0,1).getBlock();
-        submissionChest.setType(Material.CHEST);
-        Container chest = (Container) submissionChest.getState();
-        chest.setCustomName(UniVault.STARTER + "§c#SUBMISSION");
-        chest.update();
-
-        updateChestIndexes();
+        new BukkitRunnable() {
+            int i = 4;
+            @Override
+            public void run() {
+                if (i > 0) {
+                    switch (i) {
+                        case 4:
+                            fillType(loc.clone().add(-304,-1,-4),loc.clone().add(304,7,4),Material.LIGHT);
+                            fillType(loc.clone().add(-4,-1,-304),loc.clone().add(4,7,304),Material.LIGHT);
+                            fillType(loc.clone().add(-305,-1,-4),loc.clone().add(-305,9,4),Material.CHISELED_NETHER_BRICKS);
+                            fillType(loc.clone().add(305,-1,-4),loc.clone().add(305,9,4),Material.CHISELED_NETHER_BRICKS);
+                            fillType(loc.clone().add(-4,-1,-305),loc.clone().add(4,9,-305),Material.CHISELED_NETHER_BRICKS);
+                            fillType(loc.clone().add(-4,-1,305),loc.clone().add(4,9,305),Material.CHISELED_NETHER_BRICKS);
+                            break;
+                        case 3:
+                            fillType(loc.clone().add(-304,-1,-4),loc.clone().add(304,-1,4),Material.RED_NETHER_BRICKS);
+                            fillType(loc.clone().add(-4,-1,-304),loc.clone().add(4,-1,304),Material.RED_NETHER_BRICKS);
+                            fillType(loc.clone().add(-304,-1,-2),loc.clone().add(304,-1,2),Material.SHROOMLIGHT);
+                            fillType(loc.clone().add(-2,-1,-304),loc.clone().add(2,-1,304),Material.SHROOMLIGHT);
+                            fillType(loc.clone().add(-304,-1,-1),loc.clone().add(304,-1,1),Material.CHISELED_NETHER_BRICKS);
+                            fillType(loc.clone().add(-1,-1,-304),loc.clone().add(1,-1,304),Material.CHISELED_NETHER_BRICKS);
+                            fillType(loc.clone().add(-4,-1,-4),loc.clone().add(4,-1,4),Material.NETHER_BRICKS);
+                            fillType(loc.clone().add(-3,-1,-3),loc.clone().add(3,-1,3),Material.RED_NETHER_BRICKS);
+                            break;
+                        case 2:
+                            fillType(loc.clone().add(-304,8,-4),loc.clone().add(304,8,4),Material.RED_NETHER_BRICKS);
+                            fillType(loc.clone().add(-4,8,-304),loc.clone().add(4,8,304),Material.RED_NETHER_BRICKS);
+                            fillType(loc.clone().add(-304,9,-3),loc.clone().add(304,9,3),Material.RED_NETHER_BRICK_SLAB);
+                            fillType(loc.clone().add(-3,9,-304),loc.clone().add(3,9,304),Material.RED_NETHER_BRICK_SLAB);
+                            fillType(loc.clone().add(-304,9,-1),loc.clone().add(304,9,1),Material.TINTED_GLASS);
+                            fillType(loc.clone().add(-1,9,-304),loc.clone().add(1,9,304),Material.TINTED_GLASS);
+                            fillType(loc.clone().add(-304,8,-2),loc.clone().add(304,8,2),Material.AIR);
+                            fillType(loc.clone().add(-2,8,-304),loc.clone().add(2,8,304),Material.AIR);
+                            break;
+                        case 1:
+                            Block submissionChest = loc.clone().add(0,0,1).getBlock();
+                            submissionChest.setType(Material.CHEST);
+                            Container chest = (Container) submissionChest.getState();
+                            chest.setCustomName(UniVault.STARTER + "§c#SUBMISSION");
+                            chest.update();
+                            updateChestIndexes();
+                            break;
+                    }
+                    i --;
+                } else this.cancel();
+            }
+        }.runTaskTimer(UniVault.getInstance(),0,5);
         player.sendMessage(UniVault.STARTER + "§dGenerated the archives!");
     }
 
+    public static Location getArchiveCorner1() {
+        Location loc = UniVault.getInstance().getConfig().getLocation("config.archive.origin");
+        if (loc == null) return null;
+        return loc.clone().add(-305,-1,-4);
+    }
 
+    public static Location getArchiveCorner2() {
+        Location loc = UniVault.getInstance().getConfig().getLocation("config.archive.origin");
+        if (loc == null) return null;
+        return loc.clone().add(305,9,4);
+    }
+
+    public static Location getArchiveCorner3() {
+        Location loc = UniVault.getInstance().getConfig().getLocation("config.archive.origin");
+        if (loc == null) return null;
+        return loc.clone().add(-4,-1,-305);
+    }
+
+    public static Location getArchiveCorner4() {
+        Location loc = UniVault.getInstance().getConfig().getLocation("config.archive.origin");
+        if (loc == null) return null;
+        return loc.clone().add(4,9,305);
+    }
 
 
 

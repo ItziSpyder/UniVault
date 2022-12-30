@@ -22,3 +22,5 @@ config:
     enabled: true
     duplicates: false
     cooldown: 10
+  archive:
+    can_break_or_place: false
