@@ -196,11 +196,12 @@ public class ShelfClickEvent implements Listener {
                 a,a,a,a,a,a,a,a,a,
                 Items.SEARCH,x,x,x,x,x,x,x,Items.SUBMISSION
         });
-        for (int i = 0; i < 500; i ++) {
+        for (int i = 0; i < 200; i ++) {
             try {
                 ItemStack item = Shelf.STOREDITEMS.get(i);
-                if (getDisplay(item).toLowerCase().contains(query) || item.getType().name().toLowerCase().contains(query)) {
-                    menu.setItem(menu.firstEmpty(),Shelf.STOREDITEMS.get(i));
+                item = Shelf.unbox(item);
+                if (item.getItemMeta().toString().toLowerCase().trim().contains(query.toLowerCase())) {
+                    menu.setItem(menu.firstEmpty(),item);
                 }
             } catch (IndexOutOfBoundsException | NullPointerException exception) {
                 // empty

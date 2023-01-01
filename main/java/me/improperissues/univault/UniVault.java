@@ -29,14 +29,16 @@ public final class UniVault extends JavaPlugin {
                 "\n/submit" +
                 "\n========================================"
         );
-        Shelf.reloadItemList();
         STARTER = Config.getPluginPrefix();
 
         // Files
         getConfig().options().copyDefaults();
         saveDefaultConfig();
         getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
-            @Override public void run() {reloadConfig();}
+            @Override public void run() {
+                reloadConfig();
+                Shelf.reloadItemList();
+            }
         },20);
 
 

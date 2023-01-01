@@ -4,11 +4,13 @@ import me.improperissues.univault.UniVault;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.block.ShulkerBox;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BlockStateMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -31,9 +33,9 @@ public class Shelf {
     public static void reloadItemList() {
         STOREDITEMS = getItemList();
         STOREDRANDOM = new ArrayList<>(STOREDITEMS);
-        STOREDRANDOM.removeIf(item -> isStorage(item) || item.getType().isAir());
+        STOREDRANDOM.removeIf(item -> item == null || item.getType().equals(Material.LIGHT_GRAY_SHULKER_BOX) || item.getType().isAir());
         STOREDSHULKERS = new ArrayList<>(STOREDITEMS);
-        STOREDSHULKERS.removeIf(item -> !isStorage(item) || item.getType().isAir());
+        STOREDSHULKERS.removeIf(item -> item == null || item.getType().equals(Material.WHITE_SHULKER_BOX) || item.getType().isAir());
     }
 
     public static int getFileIndex(File file) {
@@ -55,7 +57,7 @@ public class Shelf {
 
     public static void deleteUnusedFiles() {
         // gets the total pages, or the number of used files
-        final int totalPages = (int) Math.ceil(STOREDITEMS.size() / 100.0);
+        final int totalPages = (int) Math.ceil(STOREDITEMS.size() / 100.00);
         // list of the saved files
         File[] files = PARENTFOLDER.listFiles();
         // file list cannot be null
@@ -135,10 +137,15 @@ public class Shelf {
 
     public static List<ItemStack> getFileItems(File file) {
         // gets the item list in a saved file
-        List<ItemStack> items = new ArrayList<>();
-        if (file == null) return items;
-        FileConfiguration data = YamlConfiguration.loadConfiguration(file);
-        return (List<ItemStack>) data.get("shelf.contents");
+        try {
+            List<ItemStack> items = new ArrayList<>();
+            if (file == null) return items;
+            FileConfiguration data = YamlConfiguration.loadConfiguration(file);
+            return (List<ItemStack>) data.get("shelf.contents");
+        } catch (Exception exception) {
+            Bukkit.getServer().getLogger().severe(file.getPath() + " FAILED TO LOAD, SKIPPING! ITEMS FROM THIS FILE WILL NOT LOAD IN GAME UNTIL IT IS FIXED!");
+            return new ArrayList<>();
+        }
     }
 
     public static List<ItemStack> getItemList() {
@@ -151,7 +158,11 @@ public class Shelf {
         File[] files = PARENTFOLDER.listFiles();
         if (files == null) return items;
         for (File file : files) {
-            items.addAll(getFileItems(file));
+            try { items.addAll(getFileItems(file)); }
+            catch (Exception exception) {
+                Bukkit.getServer().getLogger().severe(file.getPath() + " FAILED TO LOAD, SKIPPING! ITEMS FROM THIS FILE WILL NOT LOAD IN GAME UNTIL IT IS FIXED!");
+                return new ArrayList<>();
+            }
         }
         return items;
     }
@@ -173,11 +184,15 @@ public class Shelf {
             try {
                 // submission items cannot have the same display names as the menu sprites
                 // submission items cannot duplicate with the items in the big list
-                item.setAmount(1);
-                ItemMeta meta = item.getItemMeta();
-                meta.getPersistentDataContainer().set(new NamespacedKey(UniVault.getInstance(),"FROM"), PersistentDataType.STRING,Config.getWaterMark());
-                item.setItemMeta(meta);
-                if (NBT.submittable(item) && !result.contains(item)) result.add(item);
+                if (!item.getType().isAir()) {
+                    // sets stack to 1 and adds watermark
+                    watermark(item);
+                    // box the item
+                    ItemStack box = box(item);
+                    watermark(box);
+                    // add the item to the archives
+                    if (NBT.submittable(item) && !((STOREDITEMS.contains(box) || STOREDITEMS.contains(item) || result.contains(box)) && !Config.getDuplicates())) result.add(box);
+                }
             } catch (NullPointerException exception) {
                 // empty
             }
@@ -186,12 +201,47 @@ public class Shelf {
     }
 
     public static boolean isStorage(ItemStack item) {
+        if (item == null) return false;
         String name = item.getType().name().toUpperCase();
         return name.contains("CHEST") || name.contains("SHULKER") || name.contains("BARREL");
     }
 
     public static String getDisplay(ItemStack item) {
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null || meta.getDisplayName().trim().equals("")) return item.getType().name().trim();
         return item.getItemMeta().getDisplayName();
+    }
+
+    public static ItemStack watermark(ItemStack item) {
+        // adds the watermark set from config to all submitted items
+        item.setAmount(1);
+        ItemMeta meta = item.getItemMeta();
+        meta.getPersistentDataContainer().set(new NamespacedKey(UniVault.getInstance(), "FROM"), PersistentDataType.STRING, Config.getWaterMark());
+        item.setItemMeta(meta);
+        return item;
+    }
+
+    public static ItemStack box(ItemStack item) {
+        // boxes up each submitted item to save up space
+        ItemStack box = new ItemStack(Material.WHITE_SHULKER_BOX);
+        if (isStorage(item)) box.setType(Material.LIGHT_GRAY_SHULKER_BOX);
+        BlockStateMeta boxing = (BlockStateMeta) box.getItemMeta();
+        ShulkerBox container = (ShulkerBox) boxing.getBlockState();
+        // setting data
+        container.getInventory().addItem(item);
+        container.update();
+        boxing.setBlockState(container);
+        boxing.setDisplayName("§c#BOX-ARCHIVED");
+        box.setItemMeta(boxing);
+        return box;
+    }
+
+    public static ItemStack unbox(ItemStack item) {
+        // unboxes an item
+        if (!getDisplay(item).contains("§c#BOX-ARCHIVED") || !item.getType().name().toLowerCase().contains("shulker_box")) return item;
+        BlockStateMeta meta = (BlockStateMeta) item.getItemMeta();
+        ShulkerBox box = (ShulkerBox) meta.getBlockState();
+        return box.getInventory().getItem(0);
     }
 
     public static void openItems(Player player, int index) {
@@ -210,7 +260,7 @@ public class Shelf {
         // add the contents for all item types
         for (int i = (index * 45); i < (index * 45) + 45; i ++) {
             try {
-                menu.setItem(menu.firstEmpty(),STOREDITEMS.get(i));
+                menu.setItem(menu.firstEmpty(),unbox(STOREDITEMS.get(i)));
             } catch (IndexOutOfBoundsException | NullPointerException exception) {
                 // empty
             }
@@ -235,7 +285,7 @@ public class Shelf {
         // add the contents for all item types
         for (int i = (index * 45); i < (index * 45) + 45; i ++) {
             try {
-                menu.setItem(menu.firstEmpty(),STOREDSHULKERS.get(i));
+                menu.setItem(menu.firstEmpty(),unbox(STOREDSHULKERS.get(i)));
             } catch (IndexOutOfBoundsException | NullPointerException exception) {
                 // empty
             }
@@ -260,7 +310,7 @@ public class Shelf {
         // add the contents for all item types
         for (int i = (index * 45); i < (index * 45) + 45; i ++) {
             try {
-                menu.setItem(menu.firstEmpty(),STOREDRANDOM.get(i));
+                menu.setItem(menu.firstEmpty(),unbox(STOREDRANDOM.get(i)));
             } catch (IndexOutOfBoundsException | NullPointerException exception) {
                 // empty
             }
@@ -298,7 +348,7 @@ public class Shelf {
         } catch (NullPointerException | IndexOutOfBoundsException | IllegalArgumentException exception) {
             // empty
         }
-        return item;
+        return unbox(item);
     }
 
     public static int ran(int max, boolean ceil) {
