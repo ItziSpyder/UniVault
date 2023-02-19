@@ -3,7 +3,7 @@ A universal vault that can be accessed from anywhere in the server.
 Kit submissions, item management, NBT Archives!
 https://www.spigotmc.org/resources/universalvaults.106973/
 
-### __**Version 2.0.0 and Above:**__ *(WIP no releases yet)* 
+### __**Version 2.0.0 and Above:**__
 
 - `/archive` `<action>` (reload, update, etc)
 - `/preview` `<index>` (preview a page of the archive)
