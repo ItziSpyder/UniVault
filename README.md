@@ -12,7 +12,7 @@ https://www.spigotmc.org/resources/universalvaults.106973/
 - `/preview` `search:` `[<query>]` (search the archive)
 - `/testitem` (test an item)
 - `/submit` (submit contents)
-` `/handpicked` `<action>` `<handpicked archive>` (manage handpicked archives)
+- `/handpicked` `<action>` `<handpicked archive>` (manage handpicked archives)
 
 
 
