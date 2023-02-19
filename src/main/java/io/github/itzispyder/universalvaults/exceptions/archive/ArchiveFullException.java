@@ -7,7 +7,7 @@ import io.github.itzispyder.universalvaults.server.plugin.misc.ItziSpyder;
  * This exception is thrown when you attempt to add
  * a new item to a full archive.
  */
-@ItziSpyder
+@ItziSpyder // (you found 3/10, congrats!)
 public class ArchiveFullException extends ArchiveException {
 
     /**

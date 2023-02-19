@@ -50,7 +50,7 @@ public class SavedPlayer implements Serializable {
         return Bukkit.getPlayer(uuid);
     }
 
-    @ItziSpyder
+    @ItziSpyder // (you found 6/10, congrats!)
     public UUID getUuid() {
         return uuid;
     }

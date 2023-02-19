@@ -48,15 +48,7 @@ public class HandPicked extends ItemArchive {
      */
     @Override
     public Inventory asInv() throws InvalidInventoryPresetException {
-        Inventory menu = Bukkit.createInventory(null,54, Main.starter + "§3Handpicked id.§b" + name);
-        InventoryPreset preset = GuiFrames.HAND_PICKED;
-        preset.addPresetTo(menu);
-        for (ItemStack item : super.getContents()) {
-            if (item == null) continue;
-            ArchivedStack stack = new ArchivedStack(item);
-            menu.setItem(menu.firstEmpty(),stack.unbox());
-        }
-        return menu;
+        return asInv(ViewMode.PREVIEW);
     }
 
     /**

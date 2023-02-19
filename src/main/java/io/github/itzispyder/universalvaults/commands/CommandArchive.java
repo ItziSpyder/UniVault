@@ -16,7 +16,7 @@ import java.util.List;
 import static io.github.itzispyder.universalvaults.Main.is;
 import static io.github.itzispyder.universalvaults.Main.starter;
 
-@ItziSpyder
+@ItziSpyder // (you found 7/10, congrats!)
 public class CommandArchive implements CommandExecutor {
 
     @Override

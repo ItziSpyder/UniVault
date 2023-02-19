@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 /**
  * UniversalVaults main class
  */
-@ItziSpyder
+@ItziSpyder // (you found 1/10, congrats!)
 public final class Main extends JavaPlugin {
 
     public static final PluginManager pm = Bukkit.getPluginManager();

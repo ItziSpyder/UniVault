@@ -23,7 +23,7 @@ public class Submission {
      * @param player the submitter
      * @param contents the contents submitted
      */
-    @ItziSpyder
+    @ItziSpyder // (you found 10/10, congrats!)
     public Submission(Player player, ItemStack[] contents) {
         this.submitter = new SavedPlayer(player);
         this.contents = new HashSet<>();

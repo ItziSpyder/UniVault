@@ -20,7 +20,7 @@ public class InventoryContents {
      * Constructs inventory contents from item array
      * @param contents item array
      */
-    @ItziSpyder
+    @ItziSpyder // (you found 5/10, congrats!)
     public InventoryContents(ItemStack[] contents) {
         this.contents = new HashMap<>();
         this.array = contents;

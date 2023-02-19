@@ -65,7 +65,7 @@ public class CommandPreview implements CommandExecutor {
 
     public static class Tab implements TabCompleter {
         @Override
-        @ItziSpyder
+        @ItziSpyder // (you found 8/10, congrats!)
         public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
             List<String> list = new ArrayList<>();
             switch (args.length) {

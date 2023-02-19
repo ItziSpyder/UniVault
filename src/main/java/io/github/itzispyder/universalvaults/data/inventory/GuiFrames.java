@@ -39,7 +39,7 @@ public abstract class GuiFrames {
         });
     }
 
-    @ItziSpyder
+    @ItziSpyder // (you found 4/10, congrats!)
     public static void setPreview() {
         ItemStack b = Items.blank(PaneType.CYAN);
         ItemStack bk = Items.BACK;
