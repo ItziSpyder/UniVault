@@ -22,7 +22,8 @@ public abstract class UniVaultValidation {
      * @return file name is valid
      */
     public static boolean validFileName(String name) {
-        String validName = name.replaceAll("[a-z\\-\\_]","");
+        if (name.length() > 15) return false;
+        String validName = name.replaceAll("[0-9a-z\\-\\_]","");
         return validName.trim().length() == 0;
     }
 }

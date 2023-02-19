@@ -1,6 +1,6 @@
 package io.github.itzispyder.universalvaults.archive.vaults;
 
-import io.github.itzispyder.universalvaults.archive.ArchiveLoader;
+import io.github.itzispyder.universalvaults.archive.ArchiveManager;
 import io.github.itzispyder.universalvaults.archive.ArchivedStack;
 import io.github.itzispyder.universalvaults.server.plugin.misc.ItziSpyder;
 import org.bukkit.Material;
@@ -34,7 +34,7 @@ public class ItemSets {
      * Reloads the item sets
      */
     public void reload() {
-        all = ArchiveLoader.loadAll();
+        all = ArchiveManager.loadAll();
         update();
     }
 

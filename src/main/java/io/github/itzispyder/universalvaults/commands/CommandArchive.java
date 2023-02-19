@@ -1,7 +1,7 @@
 package io.github.itzispyder.universalvaults.commands;
 
 import io.github.itzispyder.universalvaults.Main;
-import io.github.itzispyder.universalvaults.archive.ArchiveLoader;
+import io.github.itzispyder.universalvaults.archive.ArchiveManager;
 import io.github.itzispyder.universalvaults.exceptions.command.CmdExHandler;
 import io.github.itzispyder.universalvaults.server.plugin.misc.ItziSpyder;
 import org.bukkit.Bukkit;
@@ -31,7 +31,7 @@ public class CommandArchive implements CommandExecutor {
                 }
                 case "saveall" -> {
                     Main.shr.runTaskAsynchronously(Main.getInstance(),() -> {
-                        ArchiveLoader.archiveAll();
+                        ArchiveManager.archiveAll();
                         sender.sendMessage(starter + "§bSaved the archived!");
                     });
                 }

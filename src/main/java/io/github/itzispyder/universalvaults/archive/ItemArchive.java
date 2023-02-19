@@ -1,9 +1,11 @@
 package io.github.itzispyder.universalvaults.archive;
 
 import io.github.itzispyder.universalvaults.Main;
+import io.github.itzispyder.universalvaults.data.Config;
 import io.github.itzispyder.universalvaults.data.inventory.GuiFrames;
 import io.github.itzispyder.universalvaults.data.inventory.InventoryPreset;
 import io.github.itzispyder.universalvaults.exceptions.InvalidInventoryPresetException;
+import io.github.itzispyder.universalvaults.exceptions.LargeNbtException;
 import io.github.itzispyder.universalvaults.exceptions.archive.ArchiveFullException;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
@@ -47,7 +49,7 @@ public class ItemArchive implements Serializable, ConfigurationSerializable, Clo
      */
     public void addItem(ItemStack item) throws ArchiveFullException {
         if (this.contents.size() >= 45)
-            throw new ArchiveFullException("This archive is full! Max size: 54  Provided size: " + (this.contents.size() + 1));
+            throw new ArchiveFullException("This archive is full! Max size: 45  Provided size: " + (this.contents.size() + 1));
         this.contents.add(item);
     }
 
@@ -55,7 +57,7 @@ public class ItemArchive implements Serializable, ConfigurationSerializable, Clo
      * Saves this archive.
      */
     public void save() {
-        ArchiveLoader.save(this);
+        ArchiveManager.save(this);
     }
 
     /**
@@ -88,9 +90,11 @@ public class ItemArchive implements Serializable, ConfigurationSerializable, Clo
      * @param contents the new set of contents
      * @throws ArchiveFullException if the contents size is too large
      */
-    public void setContents(Set<ItemStack> contents) throws ArchiveFullException {
+    public void setContents(Set<ItemStack> contents) throws ArchiveFullException, LargeNbtException {
         if (contents.size() > 45)
             throw new ArchiveFullException("This archive is full! Max size: 45  Provided size: " + contents.size());
+        if (contents.toString().length() > contents.size() * Config.Archive.max_nbt_length)
+            throw new LargeNbtException();
         this.contents = contents;
     }
 

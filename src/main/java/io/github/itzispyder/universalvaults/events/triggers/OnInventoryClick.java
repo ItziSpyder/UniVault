@@ -1,7 +1,7 @@
 package io.github.itzispyder.universalvaults.events.triggers;
 
 import io.github.itzispyder.universalvaults.Main;
-import io.github.itzispyder.universalvaults.archive.ArchiveLoader;
+import io.github.itzispyder.universalvaults.archive.ArchiveManager;
 import io.github.itzispyder.universalvaults.archive.ArchivedStack;
 import io.github.itzispyder.universalvaults.archive.vaults.Submission;
 import io.github.itzispyder.universalvaults.data.inventory.InventoryContents;
@@ -121,7 +121,7 @@ public class OnInventoryClick implements Listener {
                     return;
                 }
                 is.acceptSubmission(sub);
-                ArchiveLoader.archiveAll();
+                ArchiveManager.archiveAll();
                 is.reload();
                 p.sendMessage(starter + "§bSubmissions saved! §7§o(There are " + is.all.size() + " submissions)");
             });

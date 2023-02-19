@@ -11,7 +11,7 @@ public class InvalidArchiveNameException extends ArchiveException {
      * Constructs a new InvalidArchiveNameException
      */
     public InvalidArchiveNameException() {
-        super("Do not contain any non-alphabet or capital characters!");
+        super("Please check for non-alphabetic or capitalized characters or make sure the name is under 15 characters!");
     }
 
     /**

@@ -6,6 +6,7 @@ import io.github.itzispyder.universalvaults.data.Config;
 import io.github.itzispyder.universalvaults.data.inventory.GuiFrames;
 import io.github.itzispyder.universalvaults.events.triggers.OnInventoryClick;
 import io.github.itzispyder.universalvaults.events.triggers.OnInventoryClose;
+import io.github.itzispyder.universalvaults.events.triggers.OnPlayerInteract;
 import io.github.itzispyder.universalvaults.server.plugin.Items;
 import io.github.itzispyder.universalvaults.server.plugin.misc.ItziSpyder;
 import org.bukkit.Bukkit;
@@ -53,6 +54,7 @@ public final class Main extends JavaPlugin {
         // Events
         pm.registerEvents(new OnInventoryClick(),this);
         pm.registerEvents(new OnInventoryClose(),this);
+        pm.registerEvents(new OnPlayerInteract(),this);
 
         // Commands
         getCommand("preview").setExecutor(new CommandPreview());

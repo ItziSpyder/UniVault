@@ -1,6 +1,6 @@
 package io.github.itzispyder.universalvaults.commands;
 
-import io.github.itzispyder.universalvaults.archive.ArchiveLoader;
+import io.github.itzispyder.universalvaults.archive.ArchiveManager;
 import io.github.itzispyder.universalvaults.archive.ArchivedStack;
 import io.github.itzispyder.universalvaults.archive.ArchivedStackData;
 import io.github.itzispyder.universalvaults.archive.ItemArchive;
@@ -28,7 +28,7 @@ public class CommandPreview implements CommandExecutor {
         try {
             Player p = (Player) sender;
             if (args.length == 0) {
-                ItemArchive archive = ArchiveLoader.load(0);
+                ItemArchive archive = ArchiveManager.load(0);
                 p.openInventory(archive.asInv());
                 return true;
             }
@@ -52,7 +52,7 @@ public class CommandPreview implements CommandExecutor {
             }
             else {
                 int index = Integer.parseInt(args[0]);
-                ItemArchive archive = ArchiveLoader.load(index);
+                ItemArchive archive = ArchiveManager.load(index);
                 p.openInventory(archive.asInv());
             }
             return true;
