@@ -121,6 +121,7 @@ public class OnInventoryClick implements Listener {
                     return;
                 }
                 is.acceptSubmission(sub);
+                if (!sub.isAccepted()) return;
                 ArchiveManager.archiveAll();
                 is.reload();
                 p.sendMessage(starter + "§bSubmissions saved! §7§o(There are " + is.all.size() + " submissions)");

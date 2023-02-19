@@ -16,6 +16,7 @@ public class Submission {
 
     private Set<ItemStack> contents;
     private SavedPlayer submitter;
+    private boolean accepted;
 
     /**
      * Creates a submission
@@ -26,6 +27,7 @@ public class Submission {
     public Submission(Player player, ItemStack[] contents) {
         this.submitter = new SavedPlayer(player);
         this.contents = new HashSet<>();
+        this.accepted = true;
         for (ItemStack item : contents) {
             if (item == null) continue;
             item.setAmount(1);
@@ -41,5 +43,13 @@ public class Submission {
 
     public Set<ItemStack> getContents() {
         return contents;
+    }
+
+    public boolean isAccepted() {
+        return accepted;
+    }
+
+    public void setAccepted(boolean accepted) {
+        this.accepted = accepted;
     }
 }

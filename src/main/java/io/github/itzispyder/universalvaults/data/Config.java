@@ -4,7 +4,6 @@ import io.github.itzispyder.universalvaults.Main;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.io.File;
-import java.util.List;
 
 /**
  * Configuration file loader
@@ -31,7 +30,6 @@ public abstract class Config {
      */
     public class Plugin {
         public static final String prefix = config.getString("config.plugin.prefix");
-        public static final List<String> tos = config.getStringList("config.plugin.tos");
     }
 
     /**
@@ -41,5 +39,13 @@ public abstract class Config {
         public static final String watermark = config.getString("config.archive.watermark");
         public static final int max_nbt_length = config.getInt("config.archive.max-nbt-length");
         public static final int min_nbt_length = config.getInt("config.archive.min-nbt-length");
+    }
+
+    /**
+     * Submission configuration section
+     */
+    public class Submission {
+        public static final int cool_down = config.getInt("config.submission.cool-down");
+        public static final boolean enabled = config.getBoolean("config.submission.enabled");
     }
 }

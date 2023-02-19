@@ -94,7 +94,7 @@ public class ItemArchive implements Serializable, ConfigurationSerializable, Clo
         if (contents.size() > 45)
             throw new ArchiveFullException("This archive is full! Max size: 45  Provided size: " + contents.size());
         if (contents.toString().length() > contents.size() * Config.Archive.max_nbt_length)
-            throw new LargeNbtException();
+            if (contents.size() * Config.Archive.max_nbt_length > 0) throw new LargeNbtException();
         this.contents = contents;
     }
 
