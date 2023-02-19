@@ -1,0 +1,21 @@
+#
+#
+# UniversalVaults Configuration
+# contributors: [ImproperIssues, VideoGameSmash12]
+#
+#
+config:
+  plugin:
+    prefix: "§7[§bUni§3Vault§7]"
+    tos:
+      - " "
+      - "Please do not submit any nsfw"
+      - "Please do not submit any exploitable items"
+      - "Please be sure to be mindful of other users"
+      - "Please do not try to crash/lag the server with exploits"
+      - "  "
+      - "Have fun!"
+  archive:
+    watermark: "This item is distributed from UniversalVaults!"
+    max-nbt-length: 100000
+    min-nbt-length: 120

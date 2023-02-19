@@ -1,0 +1,41 @@
+name: UniVault
+version: '${version}'
+main: io.github.itzispyder.universalvaults.Main
+api-version: 1.17
+authors: [ ImproperIssues, VideoGameSmash12 ]
+description: Nbt vaults for itemstacks. Nbt shelving and storage.
+website: https://itzispyder.github.io/
+permissions:
+  univault.archive:
+    description: Archive management
+  univault.handpicked:
+    description: Handpicked archives management
+  univault.test:
+    description: Archive testing
+commands:
+  preview:
+    description: Archive preview
+    usage: /preview <index>
+    aliases:
+      - open
+      - vault
+  submit:
+    description: Archive submission
+    usage: /submit
+  archive:
+    description: Archive management
+    usage: /archive <action>
+    permission: univault.archive
+  test:
+    description: A testing command
+    usage: /test
+    permission: univault.test
+  testitem:
+    description: Test nbt limits
+    usage: /testitem
+  handpicked:
+    description: Handpicked archives
+    usage: /handpicked <action> <archive>
+    permission: univault.handpicked
+    aliases:
+      - hp
