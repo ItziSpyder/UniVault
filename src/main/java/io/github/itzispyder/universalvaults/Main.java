@@ -69,6 +69,10 @@ public final class Main extends JavaPlugin {
         getCommand("testitem").setTabCompleter(new CommandTestItem.Tab());
         getCommand("handpicked").setExecutor(new CommandHandpicked());
         getCommand("handpicked").setTabCompleter(new CommandHandpicked.Tab());
+        getCommand("search").setExecutor(new CommandSearch());
+        getCommand("search").setTabCompleter(new CommandSearch.Tab());
+        getCommand("univault").setExecutor(new CommandUniVault());
+        getCommand("univault").setTabCompleter(new CommandUniVault.Tab());
 
         // Loops
     }

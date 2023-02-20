@@ -42,6 +42,13 @@ public class HandPicked extends ItemArchive {
     }
 
     /**
+     * Deletes the current handpicked archive along with its files
+     */
+    public void delete() {
+        this.file.delete();
+    }
+
+    /**
      * Returns this archive as an inventory
      * @return inventory
      * @throws InvalidInventoryPresetException if the preset is null

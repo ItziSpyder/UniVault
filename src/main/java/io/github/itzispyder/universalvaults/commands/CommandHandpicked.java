@@ -22,7 +22,7 @@ public class CommandHandpicked implements CommandExecutor {
         try {
             Player p = (Player) sender;
             switch (args[0]) {
-                case "give" -> {
+                case "give","create" -> {
                     ItemStack item = HandPickedManager.generateItem(args[1]);
                     p.getInventory().addItem(item);
                     p.sendMessage(starter + "§bGave one §7" + args[1] + " §bhandpicked archive chest!");
@@ -36,6 +36,18 @@ public class CommandHandpicked implements CommandExecutor {
                     HandPicked hp = HandPickedManager.load(args[1]);
                     p.openInventory(hp.asInv(ViewMode.EDITING));
                     p.sendMessage(starter + "§bEditing §7" + hp.getName() + " §bhandpicked archive...");
+                }
+                case "delete","remove" -> {
+                    HandPicked hp = HandPickedManager.load(args[1]);
+                    hp.delete();
+                    p.sendMessage(starter + "§bDeleting §7" + hp.getName() + " §bhandpicked archive...");
+                }
+                case "list" -> {
+                    List<String> list = HandPickedManager.listValues();
+                    p.sendMessage(starter + "§bThere are §7" + list.size() + " §bhandpicked archives §7§o" + list.toString()
+                            .replaceAll("\\[","(")
+                            .replaceAll("]",")")
+                            .replaceAll(",","§f,§7§o"));
                 }
                 default -> p.sendMessage(starter + "§cUnknown or incomplete command!");
             }
@@ -56,6 +68,10 @@ public class CommandHandpicked implements CommandExecutor {
                     list.add("open");
                     list.add("edit");
                     list.add("give");
+                    list.add("delete");
+                    list.add("remove");
+                    list.add("list");
+                    list.add("create");
                 }
                 case 2 -> {
                     list.addAll(HandPickedManager.listValues());

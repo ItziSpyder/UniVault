@@ -33,9 +33,17 @@ commands:
   testitem:
     description: Test nbt limits
     usage: /testitem
+  univault:
+    description: About UniVault
+    usage: /univault
   handpicked:
     description: Handpicked archives
     usage: /handpicked <action> <archive>
     permission: univault.handpicked
     aliases:
       - hp
+  search:
+    description: Search the archive
+    usage: /search [<query>]
+    aliases:
+      - query
