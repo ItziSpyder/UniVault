@@ -8,6 +8,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.io.File;
 import java.util.*;
 
 import static io.github.itzispyder.universalvaults.Main.starter;
@@ -27,6 +28,14 @@ public class ItemSets {
         this.all = new HashSet<>();
         this.random = new HashSet<>();
         this.shulker = new HashSet<>();
+    }
+
+    /**
+     * Does a full reload for the archive
+     */
+    public void fullReload() {
+        ArchiveManager.archiveAll();
+        reload();
     }
 
     /**
@@ -109,6 +118,17 @@ public class ItemSets {
      * @return the predicted amount
      */
     public int getAmountArchives() {
+        File parent = new File(Config.dataFolder,"archives");
+        File[] children = parent.listFiles();
+        if (children == null) return 0;
+        return children.length;
+    }
+
+    /**
+     * Predict the amount of archives used to store all items
+     * @return the predicted amount
+     */
+    public int predictAmountArchives() {
         int predicted = all.size() / 45;
         predicted = all.size() % 45 == 0 ? predicted : predicted + 1;
         return predicted;

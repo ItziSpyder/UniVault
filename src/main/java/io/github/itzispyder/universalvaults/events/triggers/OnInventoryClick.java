@@ -3,8 +3,11 @@ package io.github.itzispyder.universalvaults.events.triggers;
 import io.github.itzispyder.universalvaults.Main;
 import io.github.itzispyder.universalvaults.archive.ArchiveManager;
 import io.github.itzispyder.universalvaults.archive.ArchivedStack;
+import io.github.itzispyder.universalvaults.archive.ItemArchive;
 import io.github.itzispyder.universalvaults.archive.vaults.Submission;
 import io.github.itzispyder.universalvaults.data.inventory.InventoryContents;
+import io.github.itzispyder.universalvaults.exceptions.LargeNbtException;
+import io.github.itzispyder.universalvaults.exceptions.archive.ArchiveFullException;
 import io.github.itzispyder.universalvaults.server.plugin.Items;
 import io.github.itzispyder.universalvaults.server.plugin.util.SoundPlayer;
 import org.bukkit.Bukkit;
@@ -12,16 +15,18 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 
-import static io.github.itzispyder.universalvaults.Main.is;
-import static io.github.itzispyder.universalvaults.Main.starter;
+import static io.github.itzispyder.universalvaults.Main.*;
 
 public class OnInventoryClick implements Listener {
 
@@ -56,7 +61,7 @@ public class OnInventoryClick implements Listener {
                 else if (title.contains("§3Archive index.§b"))
                     functionArchivePage(e);
             }
-        } catch (Exception ex) {}
+        } catch (Exception ex) { }
     }
 
 
@@ -134,8 +139,9 @@ public class OnInventoryClick implements Listener {
      * Called when a player clicks an archive page
      * @param e inventory click event
      */
-    static void functionArchivePage(InventoryClickEvent e) {
+    static void functionArchivePage(InventoryClickEvent e) throws LargeNbtException, ArchiveFullException {
         Player p = (Player) e.getWhoClicked();
+        Inventory inv = e.getClickedInventory();
         String title = e.getView().getTitle();
         ItemStack item = e.getCurrentItem();
         ItemMeta meta = item.getItemMeta();
@@ -154,6 +160,27 @@ public class OnInventoryClick implements Listener {
             if (index - 1 < 0) return;
             Bukkit.dispatchCommand(p,"preview " + (index - 1));
             page.play(p);
+        }
+        else {
+            if (e.getClick() == ClickType.RIGHT) {
+                if (!p.hasPermission("univault.archive")) return;
+                e.setCancelled(true);
+                ItemStack deleted = item.clone();
+                item.setAmount(0);
+                // save archive
+                InventoryContents contents = new InventoryContents(inv);
+                ItemArchive archive = new ItemArchive(index);
+                archive.setContents(new HashSet<>(List.of(contents.subArray(0, 44))));
+                archive.save();
+                // play sound
+                SoundPlayer pling = new SoundPlayer(p.getLocation(),Sound.BLOCK_NOTE_BLOCK_PLING,10,0.1F);
+                pling.play(p);
+                // update
+                shr.runTaskAsynchronously(Main.getInstance(),() -> {
+                    is.reload();
+                    p.sendMessage(starter + "§cDeleted §8>> §7" + ArchivedStack.getDisplay(deleted));
+                });
+            }
         }
     }
 }
