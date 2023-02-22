@@ -38,8 +38,6 @@ public class OnInventoryClick implements Listener {
         try {
             if (title.contains(starter)) {
                 ItemStack item = e.getCurrentItem();
-                ItemMeta meta = item.getItemMeta();
-                String display = ArchivedStack.getDisplay(item);
                 if (inv.getType().equals(InventoryType.PLAYER)) return;
                 if (matchDisplay(item," ")) {
                     e.setCancelled(true);
@@ -52,7 +50,7 @@ public class OnInventoryClick implements Listener {
                 }
                 if (matchDisplay(item,Items.Submissions.TOARCHIVE)) {
                     e.setCancelled(true);
-                    Bukkit.dispatchCommand(p,"preview 0");
+                    Bukkit.dispatchCommand(p,"preview");
                     return;
                 }
 

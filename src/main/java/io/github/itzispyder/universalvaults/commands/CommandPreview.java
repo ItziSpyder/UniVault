@@ -28,7 +28,8 @@ public class CommandPreview implements CommandExecutor {
         try {
             Player p = (Player) sender;
             if (args.length == 0) {
-                ItemArchive archive = ArchiveManager.load(0);
+                int index = is.getAmountArchives() - 1;
+                ItemArchive archive = ArchiveManager.load(index);
                 p.openInventory(archive.asInv());
                 return true;
             }
